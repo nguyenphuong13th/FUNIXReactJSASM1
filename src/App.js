@@ -1,23 +1,18 @@
 import logo from './logo.svg';
+import { Navbar,NavbarBrand } from 'reactstrap';
 import './App.css';
+import {STAFFS} from './shared/staffs'
+import StaffList from './StaffListComponets/StaffList';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p> asm1 updated 4
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Navbar dark color ="primary">
+            <div className="container">
+              <NavbarBrand href="/">List of Employees</NavbarBrand>
+            </div>
+      </Navbar>
+      <StaffList staffs = {STAFFS}/>
     </div>
   );
 }
