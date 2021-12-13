@@ -1,24 +1,39 @@
+import dateFormat, { masks } from "dateformat";
 function EedetailComponent(props){
-    console.log(props.selectedStaff)
     if(props.selectedStaff!==null){
+        console.log((props.selectedStaff.doB).slice(0,10))
                 return (
 
-                    <div key={props.selectedStaff.id}>
-                        <h1>Họ và Tên : {props.selectedStaff.name}</h1>
-                        <ul>
-                            <li><p>Ngày Sinh : {(new Date(props.selectedStaff.doB)).toLocaleString('vi-VN')}</p></li>
-                            <li><p>Ngày vào Công ty : {(new Date(props.selectedStaff.startDate)).toLocaleString('vi-VN')}</p></li>
-                            <li><p>Phòng Ban : {props.selectedStaff.department.name}</p></li>
-                            <li><p>Số ngày nghỉ còn lại : {props.selectedStaff.annualLeave}</p></li>
-                            <li><p>Số ngày đã làm thêm : {props.selectedStaff.overTime}</p></li>
-                        </ul>
+                    <div key={props.selectedStaff.id} className='mt-5 text-center' id="myTable">
+                        <table className="table table-dark table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Họ và Tên</th>
+                                    <th>Ngày sinh</th>
+                                    <th>Ngày vào công ty</th>
+                                    <th>Phòng ban</th>
+                                    <th>Số ngày nghỉ còn lại</th>
+                                    <th>Số ngày đã làm thêm</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td data-label = 'Họ và Tên'>{props.selectedStaff.name}</td>
+                                    <td data-label = 'Ngày sinh'>{dateFormat((props.selectedStaff.doB).slice(0,10),'dd/mm/yyyy')}</td>
+                                    <td data-label = 'Ngày vào công ty'>{dateFormat((props.selectedStaff.startDate).slice(0,10),'dd/mm/yyyy')}</td>
+                                    <td data-label = 'Phòng ban'>{props.selectedStaff.department.name}</td>
+                                    <td data-label = 'Số ngày nghỉ còn lại'>{props.selectedStaff.annualLeave}</td>
+                                    <td data-label = 'Số ngày đã làm thêm'>{props.selectedStaff.overTime}</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 )
         }
 
     else{
         return(
-           <div></div>
+           <div className="text-center mt-5"><p>Bấm vào tên nhân viên để xem thông tin</p></div>
         )
     }
 
