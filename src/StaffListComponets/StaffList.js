@@ -9,7 +9,7 @@ const StaffList = (props) =>{
     }
     const Liststaff = props.staffs.map((staffs)=>{
         return(
-            <div key={staffs.id} onClick={()=>OnSelectedEe(staffs)} className='col-sm-12 col-md-6 col-lg-4 mt-1'>
+            <div key={staffs.id} onClick={()=>OnSelectedEe(staffs)} className='col-sm-12 col-md-6 col-lg-3 mt-1'>
                 <ul className='border border-light rounded text-center'>
                     <li className='list-unstyled'>{staffs.name}</li>
                 </ul>
