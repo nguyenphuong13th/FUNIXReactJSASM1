@@ -1,9 +1,7 @@
 import dateFormat, { masks } from "dateformat";
 function EedetailComponent(props){
     if(props.selectedStaff!==null){
-        console.log((props.selectedStaff.doB).slice(0,10))
                 return (
-
                     <div key={props.selectedStaff.id} className='mt-5 text-center' id="myTable">
                         <table className="table table-dark table-hover">
                             <thead>
@@ -30,12 +28,10 @@ function EedetailComponent(props){
                     </div>
                 )
         }
-
     else{
         return(
            <div className="text-center mt-5"><p>Bấm vào tên nhân viên để xem thông tin</p></div>
         )
     }
-
 }
 export default EedetailComponent
