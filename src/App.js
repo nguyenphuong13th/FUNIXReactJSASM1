@@ -1,23 +1,29 @@
-import logo from './logo.svg';
+import { Routes,Route} from 'react-router-dom';
 import './App.css';
+import Departmentcomponent from './components/Departmentcomponent';
+import Eelist from './components/Eelist';
+import Footercomponent from './components/Footercomponent';
+import Navbarcomponent from './components/Navbarcomponents';
+import Staffsalarycomponent from './components/Staffsalarycomponent';
+import Staffdetailcomponent from './components/Staffdetailcomponent';
+import SearchEecomponent from './components/SearchEecomponent'
+import {STAFFS} from './shared/staffs'
+import{DEPARTMENTS}from'./shared/staffs'
+
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='container'>
+      <Navbarcomponent/>
+      <Routes>
+        <Route path="/" element={<Eelist staffs={STAFFS}/>}/>
+        <Route path = '/' element={<SearchEecomponent/>}/>
+        <Route path="/department" element={<Departmentcomponent department={DEPARTMENTS}/>}/>
+        <Route path="/salary" element={<Staffsalarycomponent staffs={STAFFS}/>}/>
+        <Route path="/:id" element={<Staffdetailcomponent staffs={STAFFS}/>}/>
+      </Routes>
+      <Footercomponent/>
     </div>
   );
 }
