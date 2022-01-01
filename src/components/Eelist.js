@@ -23,15 +23,6 @@ function Eelist(props){
     return (
         <div className='container mt-5'>
             <div className='row'>
-                <Form className="d-flex">
-                    <FormControl
-                    type="search"
-                    placeholder="Search"
-                    className="me-2"
-                    aria-label="Search"
-                    />
-                    <Button variant="outline-light">Search</Button>
-                </Form>
                 {Liststaff}
             </div>
         </div>

@@ -9,6 +9,7 @@ import Staffdetailcomponent from './components/Staffdetailcomponent';
 import SearchEecomponent from './components/SearchEecomponent'
 import {STAFFS} from './shared/staffs'
 import{DEPARTMENTS}from'./shared/staffs'
+import RenderSearchEecomponent from './components/RenderSearchEecomponent';
 
 
 
@@ -16,6 +17,8 @@ function App() {
   return (
     <div className='container'>
       <Navbarcomponent/>
+      <SearchEecomponent placeholder='Enter your search here' data={STAFFS}/>
+      {/* <RenderSearchEecomponent staffs={STAFFS}/> */}
       <Routes>
         <Route path="/" element={<Eelist staffs={STAFFS}/>}/>
         <Route path = '/' element={<SearchEecomponent/>}/>
