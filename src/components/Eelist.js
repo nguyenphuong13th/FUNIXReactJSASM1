@@ -2,17 +2,36 @@ import { Card,CardImg,CardImgOverlay,CardText,CardBody,CardTitle } from 'reactst
 import { useState } from "react"
 import { Link } from 'react-router-dom';
 import {Navbar,NavDropdown,NavItem,Container,Nav,Form,FormControl,Button,Modal,Row,Col} from 'react-bootstrap'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faPlus } from '@fortawesome/free-solid-svg-icons'
 import logo from '../assets/images/alberto.png'
 function Eelist(props){
-    const[selectedEe,setSelectedEe] = useState(null)
-    const OnSelectedEe = (staffs)=>{
-        setSelectedEe(staffs);
-    }
+    // const[selectedEe,setSelectedEe] = useState(null)
+    // const OnSelectedEe = (staffs)=>{
+    //     setSelectedEe(staffs);
+    // }
+    const newStaff = {
+
+        id: '',
+        name: '',
+        doB: '',
+        salaryScale: '',
+        startDate: '',
+        department: '',
+        annualLeave: '',
+        overTime: '',
+        salary: '',
+        image: {logo},
+
+        }
+    const[newEe,setnewEe]=useState(newStaff)
+    console.log(newEe);
+    //@ Search component state
+    const[StaffList,setStaffList]= useState(props.staffs)
     const [FilterdEeName,setFilterdEeName] =  useState([])
-    console.log(FilterdEeName);
     const[searchEeName,setsearchEeName]= useState('')
     const[Buttonclick,setButtonclick]= useState(false)
-    //Modal State effect
+    //@Modal State effect
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -39,12 +58,18 @@ function Eelist(props){
         }else{
             setFilterdEeName(newFilter);
         }
+        setButtonclick(true)
+    }
+    const handleAdd = (e)=>{
+        e.preventDefault();
+        setStaffList(...StaffList,newEe)
+        console.log(StaffList);
     }
 
-    const Liststaff = props.staffs.map((staffs)=>{
+    const Liststaff = StaffList.map((staffs)=>{
         return(
             <>
-                <div key={staffs.id} onClick={()=>OnSelectedEe(staffs)} className='col-sm-12 col-md-6 col-lg-3 mt-5'>
+                <div key={staffs.id}  className='col-sm-12 col-md-6 col-lg-3 mt-5'>
                     <Link className='text-decoration-none text-dark' to={`/${staffs.id}`}>
                         <Card body className="text-center">
                             <CardImg  width='100%' src={logo} alt={staffs.name}/>
@@ -58,7 +83,7 @@ function Eelist(props){
         const SearchedEe =  FilterdEeName.map((staffs)=>{
             return(
                 <>
-                    <div key={staffs.id} onClick={()=>OnSelectedEe(staffs)} className='col-sm-12 col-md-6 col-lg-3 mt-5'>
+                    <div key={staffs.id} className='col-sm-12 col-md-6 col-lg-3 mt-5'>
                         <Link className='text-decoration-none text-dark' to={`/${staffs.id}`}>
                             <Card body className="text-center">
                                 <CardImg  width='100%' src={logo} alt={staffs.name}/>
@@ -76,7 +101,7 @@ function Eelist(props){
                     <h3>Nhân Viên</h3>
                     <div>
                         <Button variant="primary" onClick={handleShow}>
-                            Launch demo modal
+                            <FontAwesomeIcon icon={faPlus}/>
                         </Button>
                         <Modal show={show} onHide={handleClose}>
                             <Modal.Header closeButton>
@@ -85,72 +110,107 @@ function Eelist(props){
                             <Modal.Body>
                                 <Form>
                                     <Form.Group as={Row} className="mb-3">
-                                        <Form.Label column sm="3">
+                                        <Form.Label htmlFor='tên' column sm="3">
                                         Tên
                                         </Form.Label>
                                         <Col sm="9">
-                                        <Form.Control type="text" placeholder="Tên Nhân Viên" />
+                                        <Form.Control
+                                        type="text"
+                                        placeholder="Tên Nhân Viên"
+                                        value={newEe.name}
+                                        //take all key and value in newEe just update key name value = e.target.value
+                                        onChange={(e)=>setnewEe({...newEe,name:e.target.value})}  />
                                         </Col>
                                     </Form.Group>
                                     <Form.Group as={Row} className="mb-3">
-                                        <Form.Label column sm="3">
+                                        <Form.Label htmlFor='DOB' column sm="3">
                                         Ngày sinh
                                         </Form.Label>
                                         <Col sm="9">
-                                        <Form.Control type="date" />
+                                        <Form.Control
+                                        type="date"
+                                        value={newEe.doB}
+                                        onChange={(e)=>setnewEe({...newEe,doB:e.target.value})}   />
                                         </Col>
                                     </Form.Group>
                                     <Form.Group as={Row} className="mb-3">
-                                        <Form.Label column sm="3">
-                                        Ngày Vào Công ty
-                                        </Form.Label>
-                                        <Col sm="9">
-                                        <Form.Control type="date" />
-                                        </Col>
-                                    </Form.Group>
-                                    <Form.Group as={Row} className="mb-3">
-                                        <Form.Label column sm="3">
-                                        Phòng Ban
-                                        </Form.Label>
-                                        <Col sm="9">
-                                            <Form.Select aria-label="Default select example">
-                                            <option>Chọn Phòng Ban</option>
-                                            <option value="1">Sale</option>
-                                            <option value="2">HR</option>
-                                            <option value="3">Marketing</option>
-                                            <option value="4">IT</option>
-                                            <option value="5">Finance</option>
-                                            </Form.Select>
-                                        </Col>
-                                    </Form.Group>
-                                    <Form.Group as={Row} className="mb-3">
-                                        <Form.Label column sm="3">
+                                        <Form.Label htmlFor='salaryIndex' column sm="3">
                                         Hệ số lương
                                         </Form.Label>
                                         <Col sm="9">
-                                        <Form.Control type="number"/>
+                                        <Form.Control
+                                        type="number"
+                                        value={newEe.salaryScale}
+                                        onChange={(e)=>setnewEe({...newEe,salaryScale:e.target.value})}/>
                                         </Col>
                                     </Form.Group>
                                     <Form.Group as={Row} className="mb-3">
-                                        <Form.Label column sm="3">
+                                        <Form.Label htmlFor='startedDate' column sm="3">
+                                        Ngày Vào Công ty
+                                        </Form.Label>
+                                        <Col sm="9">
+                                        <Form.Control
+                                        type="date"
+                                        value={newEe.startDate}
+                                        onChange={(e)=>setnewEe({...newEe,startDate:e.target.value})}/>
+                                        </Col>
+                                    </Form.Group>
+                                    <Form.Group as={Row} className="mb-3">
+                                        <Form.Label htmlFor='department' column sm="3">
+                                        Phòng Ban
+                                        </Form.Label>
+                                        <Col sm="9">
+                                            <Form.Select
+                                            aria-label="Default select example"
+                                            value={newEe.department}
+                                            onChange={(e)=>setnewEe({...newEe,department:e.target.value})}>
+                                            <option>Chọn Phòng Ban</option>
+                                            <option value="Sale">Sale</option>
+                                            <option value="HR">HR</option>
+                                            <option value="Marketing">Marketing</option>
+                                            <option value="IT">IT</option>
+                                            <option value="Finance">Finance</option>
+                                            </Form.Select>
+                                        </Col>
+                                    </Form.Group>
+
+                                    <Form.Group as={Row} className="mb-3">
+                                        <Form.Label htmlFor='dayOff' column sm="3">
                                         Số Ngày Nghỉ Còn Lại
                                         </Form.Label>
                                         <Col sm="9">
-                                        <Form.Control type="number"/>
+                                        <Form.Control
+                                        type="number"
+                                        value={newEe.annualLeave}
+                                        onChange={(e)=>setnewEe({...newEe,annualLeave:e.target.value})}/>
                                         </Col>
                                     </Form.Group>
                                     <Form.Group as={Row} className="mb-3">
-                                        <Form.Label column sm="3">
+                                        <Form.Label htmlFor='overtime' column sm="3">
                                         Số Ngày Đã Làm Thêm
                                         </Form.Label>
                                         <Col sm="9">
-                                        <Form.Control type="number"/>
+                                        <Form.Control
+                                        type="number"
+                                        value={newEe.overTime}
+                                        onChange={(e)=>setnewEe({...newEe,overTime:e.target.value})}/>
+                                        </Col>
+                                    </Form.Group>
+                                    <Form.Group as={Row} className="mb-3">
+                                        <Form.Label htmlFor='overtime' column sm="3">
+                                        Lương
+                                        </Form.Label>
+                                        <Col sm="9">
+                                        <Form.Control
+                                        type="number"
+                                        value={newEe.salary}
+                                        onChange={(e)=>setnewEe({...newEe,salary:e.target.value})}/>
                                         </Col>
                                     </Form.Group>
                                 </Form>
                             </Modal.Body>
                             <Modal.Footer>
-                            <Button variant="primary" onClick={handleClose}>
+                            <Button variant="primary" onClick={handleClose,handleAdd}>
                                 Thêm
                             </Button>
                             </Modal.Footer>
@@ -166,7 +226,7 @@ function Eelist(props){
                         onChange={(e) => setsearchEeName(e.target.value)}
                         />
                         <Button
-                        variant="outline-light"
+                        variant="outline-success"
                         type='submit'
                         >Search</Button>
                     </Form>
@@ -174,8 +234,15 @@ function Eelist(props){
                 </div>
                 {/* {(FilterdEeName.length >= 0 && Buttonclick == true) ? SearchedEe: <div></div>}
                 {(FilterdEeName.length <= 0 && Buttonclick == true) ?  <div></div>:Liststaff } */}
+                <h1>{newEe.name}</h1>
+                <h1>{newEe.doB}</h1>
+                <h1>{newEe.salaryScale}</h1>
+                <h1>{newEe.startDate}</h1>
+                <h1>{newEe.department}</h1>
+                <h1>{newEe.annualLeave}</h1>
+                <h1>{newEe.overTime}</h1>
+                <h1>{newEe.salary}</h1>
                 {FilterdEeName.length !=0 ? SearchedEe:Liststaff}
-
             </div>
 
         </div>
