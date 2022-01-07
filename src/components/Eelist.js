@@ -10,9 +10,10 @@ function Eelist(props){
     // const OnSelectedEe = (staffs)=>{
     //     setSelectedEe(staffs);
     // }
+    const [newEeID,setnewEeID]=useState(props.staffs.length + 1)
     const newStaff = {
 
-        id: '',
+        id: newEeID,
         name: '',
         doB: '',
         salaryScale: '',
@@ -60,12 +61,14 @@ function Eelist(props){
         }
         setButtonclick(true)
     }
+    //@desciption : add nhân viên
     const handleAdd = (e)=>{
         e.preventDefault();
-        setStaffList(...StaffList,newEe)
+        setStaffList((StaffList)=>{return [...StaffList,newEe]})
+        handleClose();
+        setnewEeID(newEeID+1)
         console.log(StaffList);
     }
-
     const Liststaff = StaffList.map((staffs)=>{
         return(
             <>
@@ -210,7 +213,7 @@ function Eelist(props){
                                 </Form>
                             </Modal.Body>
                             <Modal.Footer>
-                            <Button variant="primary" onClick={handleClose,handleAdd}>
+                            <Button variant="primary" onClick={handleAdd}>
                                 Thêm
                             </Button>
                             </Modal.Footer>
@@ -234,15 +237,7 @@ function Eelist(props){
                 </div>
                 {/* {(FilterdEeName.length >= 0 && Buttonclick == true) ? SearchedEe: <div></div>}
                 {(FilterdEeName.length <= 0 && Buttonclick == true) ?  <div></div>:Liststaff } */}
-                <h1>{newEe.name}</h1>
-                <h1>{newEe.doB}</h1>
-                <h1>{newEe.salaryScale}</h1>
-                <h1>{newEe.startDate}</h1>
-                <h1>{newEe.department}</h1>
-                <h1>{newEe.annualLeave}</h1>
-                <h1>{newEe.overTime}</h1>
-                <h1>{newEe.salary}</h1>
-                {FilterdEeName.length !=0 ? SearchedEe:Liststaff}
+                {Buttonclick ? SearchedEe:Liststaff}
             </div>
 
         </div>
