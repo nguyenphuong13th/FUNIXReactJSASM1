@@ -1,9 +1,9 @@
-import { Card,CardImg,CardImgOverlay,CardText,CardBody,CardTitle } from 'reactstrap'
+import { Card,CardImg,CardTitle } from 'reactstrap'
 import { useState } from "react"
 import { Link } from 'react-router-dom';
-import {Navbar,NavDropdown,NavItem,Container,Nav,Form,FormControl,Button,Modal,Row,Col} from 'react-bootstrap'
+import {Form,FormControl,Button,Modal,Row,Col} from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faPlus } from '@fortawesome/free-solid-svg-icons'
+import {faPlus, faWindowClose } from '@fortawesome/free-solid-svg-icons'
 import logo from '../assets/images/alberto.png'
 function Eelist(props){
     // const[selectedEe,setSelectedEe] = useState(null)
@@ -22,11 +22,10 @@ function Eelist(props){
         annualLeave: '',
         overTime: '',
         salary: '',
-        image: {logo},
+        image: logo,
 
         }
     const[newEe,setnewEe]=useState(newStaff)
-    console.log(newEe);
     //@ Search component state
     const[StaffList,setStaffList]= useState(props.staffs)
     const [FilterdEeName,setFilterdEeName] =  useState([])
@@ -34,8 +33,6 @@ function Eelist(props){
     const[Buttonclick,setButtonclick]= useState(false)
     //@Modal State effect
     const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
     //@ desciption : Search on change
     // const handleFilter = (e)=>{
     //     const searchEeName = e.target.value;
@@ -61,15 +58,20 @@ function Eelist(props){
         }
         setButtonclick(true)
     }
-    //@desciption : add nhân viên
+    //@desciption : add nhân viên by submit
+    const handleSubmitForm = (e)=>{
+        e.preventDefault();
+        props.handleAddStaff(newEe)
+        setShow(!show)
+    }
+    //@desciption : add nhân viên by onclick
     const handleAdd = (e)=>{
         e.preventDefault();
-        setStaffList((StaffList)=>{return [...StaffList,newEe]})
-        handleClose();
-        setnewEeID(newEeID+1)
-        console.log(StaffList);
+        props.handleAddStaff(newEe)
+        setShow(!show)
     }
-    const Liststaff = StaffList.map((staffs)=>{
+
+    const Liststaff = props.staffs.map((staffs)=>{
         return(
             <>
                 <div key={staffs.id}  className='col-sm-12 col-md-6 col-lg-3 mt-5'>
@@ -102,16 +104,20 @@ function Eelist(props){
             <div className='row'>
                 <div className='d-flex justify-content-between'>
                     <h3>Nhân Viên</h3>
+                    {/*Form add Employee*/}
                     <div>
-                        <Button variant="primary" onClick={handleShow}>
+                        <Button variant="primary" onClick={()=>{setShow(!show)}}>
                             <FontAwesomeIcon icon={faPlus}/>
                         </Button>
-                        <Modal show={show} onHide={handleClose}>
-                            <Modal.Header closeButton>
-                            <Modal.Title>Thêm Nhân Viên</Modal.Title>
+                        <Modal show={show}>
+                            <Modal.Header >
+                                <Modal.Title>Thêm Nhân Viên</Modal.Title>
+                                <Button onClick={()=>{setShow(!show)}}>
+                                <FontAwesomeIcon icon={faWindowClose}/>
+                                </Button>
                             </Modal.Header>
                             <Modal.Body>
-                                <Form>
+                                <Form onSubmit={handleSubmitForm}>
                                     <Form.Group as={Row} className="mb-3">
                                         <Form.Label htmlFor='tên' column sm="3">
                                         Tên
@@ -121,7 +127,7 @@ function Eelist(props){
                                         type="text"
                                         placeholder="Tên Nhân Viên"
                                         value={newEe.name}
-                                        //take all key and value in newEe just update key name value = e.target.value
+                                        //keep all key and value in newEe just update key name value = e.target.value
                                         onChange={(e)=>setnewEe({...newEe,name:e.target.value})}  />
                                         </Col>
                                     </Form.Group>
@@ -210,15 +216,23 @@ function Eelist(props){
                                         onChange={(e)=>setnewEe({...newEe,salary:e.target.value})}/>
                                         </Col>
                                     </Form.Group>
+                                    <Button
+                                    variant="primary"
+                                    type="submit">
+                                    Thêm
+                                    </Button>
                                 </Form>
+
                             </Modal.Body>
                             <Modal.Footer>
-                            <Button variant="primary" onClick={handleAdd}>
-                                Thêm
-                            </Button>
+                                    <Button
+                                    variant="primary" onClick={handleAdd}>
+                                    Add
+                                    </Button>
                             </Modal.Footer>
                         </Modal>
                     </div>
+                    {/* Search Bar */}
                     <Form className="d-flex" onSubmit={handleSubmit}>
                         <FormControl
                         type="search"
@@ -235,8 +249,6 @@ function Eelist(props){
                     </Form>
 
                 </div>
-                {/* {(FilterdEeName.length >= 0 && Buttonclick == true) ? SearchedEe: <div></div>}
-                {(FilterdEeName.length <= 0 && Buttonclick == true) ?  <div></div>:Liststaff } */}
                 {Buttonclick ? SearchedEe:Liststaff}
             </div>
 

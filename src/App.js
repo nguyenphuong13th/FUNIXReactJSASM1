@@ -1,4 +1,5 @@
 import { Routes,Route} from 'react-router-dom';
+import { useState } from "react";
 import './App.css';
 import Departmentcomponent from './components/Departmentcomponent';
 import Eelist from './components/Eelist';
@@ -13,14 +14,19 @@ import{DEPARTMENTS}from'./shared/staffs'
 
 
 function App() {
+  const[AllStaffs,setAllStaffs]=useState(STAFFS)
+  const handleAddStaff=(newStaff)=>{
+    console.log(newStaff,"newStaff");
+    setAllStaffs([...AllStaffs,newStaff])
+  }
   return (
     <div className='container'>
       <Navbarcomponent/>
       <Routes>
-        <Route path="/" element={<Eelist staffs={STAFFS}/>}/>
+        <Route path="/" element={<Eelist staffs={AllStaffs} handleAddStaff={handleAddStaff} />}/>
         <Route path="/department" element={<Departmentcomponent department={DEPARTMENTS}/>}/>
-        <Route path="/salary" element={<Staffsalarycomponent staffs={STAFFS}/>}/>
-        <Route path="/:id" element={<Staffdetailcomponent staffs={STAFFS}/>}/>
+        <Route path="/salary" element={<Staffsalarycomponent staffs={AllStaffs}/>}/>
+        <Route path="/:id" element={<Staffdetailcomponent staffs={AllStaffs}/>}/>
       </Routes>
       <Footercomponent/>
     </div>
