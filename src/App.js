@@ -16,7 +16,6 @@ import{DEPARTMENTS}from'./shared/staffs'
 function App() {
   const[AllStaffs,setAllStaffs]=useState(STAFFS)
   const handleAddStaff=(newStaff)=>{
-    console.log(newStaff,"newStaff");
     setAllStaffs([...AllStaffs,newStaff])
   }
   return (

@@ -10,6 +10,7 @@ function Eelist(props){
     // const OnSelectedEe = (staffs)=>{
     //     setSelectedEe(staffs);
     // }
+    //add Staff state
     const [newEeID,setnewEeID]=useState(props.staffs.length + 1)
     const newStaff = {
 
@@ -26,6 +27,8 @@ function Eelist(props){
 
         }
     const[newEe,setnewEe]=useState(newStaff)
+    //validation form state
+    const [ValidationMsg,setValidationMsg]=useState('')
     //@ Search component state
     const[StaffList,setStaffList]= useState(props.staffs)
     const [FilterdEeName,setFilterdEeName] =  useState([])
@@ -46,6 +49,7 @@ function Eelist(props){
     //     }
     // }
     // @ desciption : Search on click
+
     const handleSubmit = (e)=>{
         e.preventDefault();
         const newFilter = props.staffs.filter((value)=>{
@@ -57,18 +61,82 @@ function Eelist(props){
             setFilterdEeName(newFilter);
         }
         setButtonclick(true)
+
+    }
+    //validate function onSubmit button
+    const ValidateonSubmit = (nameValue,scaleSalaryValue,doB,startDate,department,annualLeave,overTime,salary)=>{
+        const errorMessage={}
+        if(nameValue.length <= 3 || nameValue.length >= 20){
+            errorMessage.name='* Your name must have more than 3 character and less than 20 character'
+        }
+        if(scaleSalaryValue =='' ){
+            errorMessage.scaleSalary='* Please fill this field with numbers'
+        }
+        if(doB ==""){
+            errorMessage.doB='* Please fill staff birthday'
+        }
+        if(startDate ==""){
+            errorMessage.startDate='* Please fill staff starting working date'
+        }
+        if(department ==""){
+            errorMessage.department='* Please choose staff department'
+        }
+        if(annualLeave ==""){
+            errorMessage.annualLeave='* Please fill the annual leave day remain'
+        }
+        if(overTime ==""){
+            errorMessage.overTime='* Please input overtime hour'
+        }
+        if(salary ==""){
+            errorMessage.salary='* Please input staff salary'
+        }
+        setValidationMsg(errorMessage)
+        if(Object.keys(errorMessage).length>0){
+            return false
+        }else{
+            return true
+        }
+    }
+    //validate function
+    //validate function when input change
+    const ValidateonInput = (nameValue,scaleSalaryValue,annualLeave,overTime,salary)=>{
+        const errorMessage={}
+        if(nameValue.length < 3 && nameValue.length > 0 || nameValue.length > 20){
+            errorMessage.name='* Your name must have more than 3 character and less than 20 character'
+        }
+        if(scaleSalaryValue =='' ){
+            errorMessage.scaleSalary='* Please fill this field with numbers'
+        }
+        setValidationMsg(errorMessage)
+        if(Object.keys(errorMessage).length>0){
+            return false
+        }else{
+        return true
+        }
+    }
+    //@take onchanged input
+    const handleOninputForm = (e)=>{
+        const isValid = ValidateonInput(newEe.name,newEe.salaryScale)
     }
     //@desciption : add nhân viên by submit
     const handleSubmitForm = (e)=>{
         e.preventDefault();
-        props.handleAddStaff(newEe)
-        setShow(!show)
+        const isValid = ValidateonSubmit(newEe.name,newEe.salaryScale,newEe.doB,newEe.startDate,newEe.department,newEe.annualLeave,newEe.overTime,newEe.salary)
+        console.log(isValid)
+        if (!isValid){
+            return
+        }else{
+            props.handleAddStaff(newEe)
+            setShow(!show)
+            setnewEe(newStaff)
+        }
     }
     //@desciption : add nhân viên by onclick
     const handleAdd = (e)=>{
         e.preventDefault();
         props.handleAddStaff(newEe)
         setShow(!show)
+
     }
 
     const Liststaff = props.staffs.map((staffs)=>{
@@ -106,7 +174,7 @@ function Eelist(props){
                     <h3>Nhân Viên</h3>
                     {/*Form add Employee*/}
                     <div>
-                        <Button variant="primary" onClick={()=>{setShow(!show)}}>
+                        <Button variant="primary" onClick={()=>{setShow(!show);setnewEe(newStaff)}}>
                             <FontAwesomeIcon icon={faPlus}/>
                         </Button>
                         <Modal show={show}>
@@ -123,12 +191,14 @@ function Eelist(props){
                                         Tên
                                         </Form.Label>
                                         <Col sm="9">
-                                        <Form.Control
-                                        type="text"
-                                        placeholder="Tên Nhân Viên"
-                                        value={newEe.name}
-                                        //keep all key and value in newEe just update key name value = e.target.value
-                                        onChange={(e)=>setnewEe({...newEe,name:e.target.value})}  />
+                                            <Form.Control
+                                            type="text"
+                                            placeholder="Tên Nhân Viên"
+                                            value={newEe.name}
+                                            //keep all key and value in newEe just update key name value = e.target.value
+                                            onChange={(e)=>setnewEe({...newEe,name:e.target.value})}
+                                            onInput={handleOninputForm}/>
+                                            <div className='text-danger'>{ValidationMsg.name}</div>
                                         </Col>
                                     </Form.Group>
                                     <Form.Group as={Row} className="mb-3">
@@ -136,10 +206,12 @@ function Eelist(props){
                                         Ngày sinh
                                         </Form.Label>
                                         <Col sm="9">
-                                        <Form.Control
-                                        type="date"
-                                        value={newEe.doB}
-                                        onChange={(e)=>setnewEe({...newEe,doB:e.target.value})}   />
+                                            <Form.Control
+                                            type="date"
+                                            value={newEe.doB}
+                                            onChange={(e)=>setnewEe({...newEe,doB:e.target.value})}
+                                            />
+                                            <div className='text-danger'>{ValidationMsg.doB}</div>
                                         </Col>
                                     </Form.Group>
                                     <Form.Group as={Row} className="mb-3">
@@ -147,10 +219,12 @@ function Eelist(props){
                                         Hệ số lương
                                         </Form.Label>
                                         <Col sm="9">
-                                        <Form.Control
-                                        type="number"
-                                        value={newEe.salaryScale}
-                                        onChange={(e)=>setnewEe({...newEe,salaryScale:e.target.value})}/>
+                                            <Form.Control
+                                            value={newEe.salaryScale}
+                                            onChange={(e)=>setnewEe({...newEe,salaryScale:e.target.value})}
+                                            onInput={handleOninputForm}
+                                            />
+                                            <div className='text-danger'>{ValidationMsg.scaleSalary}</div>
                                         </Col>
                                     </Form.Group>
                                     <Form.Group as={Row} className="mb-3">
@@ -158,10 +232,12 @@ function Eelist(props){
                                         Ngày Vào Công ty
                                         </Form.Label>
                                         <Col sm="9">
-                                        <Form.Control
-                                        type="date"
-                                        value={newEe.startDate}
-                                        onChange={(e)=>setnewEe({...newEe,startDate:e.target.value})}/>
+                                            <Form.Control
+                                            type="date"
+                                            value={newEe.startDate}
+                                            onChange={(e)=>setnewEe({...newEe,startDate:e.target.value})}
+                                            />
+                                            <div className='text-danger'>{ValidationMsg.startDate}</div>
                                         </Col>
                                     </Form.Group>
                                     <Form.Group as={Row} className="mb-3">
@@ -172,7 +248,8 @@ function Eelist(props){
                                             <Form.Select
                                             aria-label="Default select example"
                                             value={newEe.department}
-                                            onChange={(e)=>setnewEe({...newEe,department:e.target.value})}>
+                                            onChange={(e)=>setnewEe({...newEe,department:e.target.value})}
+                                            >
                                             <option>Chọn Phòng Ban</option>
                                             <option value="Sale">Sale</option>
                                             <option value="HR">HR</option>
@@ -180,6 +257,7 @@ function Eelist(props){
                                             <option value="IT">IT</option>
                                             <option value="Finance">Finance</option>
                                             </Form.Select>
+                                            <div className='text-danger'>{ValidationMsg.department}</div>
                                         </Col>
                                     </Form.Group>
 
@@ -188,10 +266,11 @@ function Eelist(props){
                                         Số Ngày Nghỉ Còn Lại
                                         </Form.Label>
                                         <Col sm="9">
-                                        <Form.Control
-                                        type="number"
-                                        value={newEe.annualLeave}
-                                        onChange={(e)=>setnewEe({...newEe,annualLeave:e.target.value})}/>
+                                            <Form.Control
+                                            type="number"
+                                            value={newEe.annualLeave}
+                                            onChange={(e)=>setnewEe({...newEe,annualLeave:e.target.value})}/>
+                                            <div className='text-danger'>{ValidationMsg.annualLeave}</div>
                                         </Col>
                                     </Form.Group>
                                     <Form.Group as={Row} className="mb-3">
@@ -200,9 +279,11 @@ function Eelist(props){
                                         </Form.Label>
                                         <Col sm="9">
                                         <Form.Control
-                                        type="number"
-                                        value={newEe.overTime}
-                                        onChange={(e)=>setnewEe({...newEe,overTime:e.target.value})}/>
+                                            type="number"
+                                            value={newEe.overTime}
+                                            onChange={(e)=>setnewEe({...newEe,overTime:e.target.value})}
+                                            />
+                                            <div className='text-danger'>{ValidationMsg.overTime}</div>
                                         </Col>
                                     </Form.Group>
                                     <Form.Group as={Row} className="mb-3">
@@ -211,9 +292,11 @@ function Eelist(props){
                                         </Form.Label>
                                         <Col sm="9">
                                         <Form.Control
-                                        type="number"
-                                        value={newEe.salary}
-                                        onChange={(e)=>setnewEe({...newEe,salary:e.target.value})}/>
+                                            type="number"
+                                            value={newEe.salary}
+                                            onChange={(e)=>setnewEe({...newEe,salary:e.target.value})}
+                                            />
+                                            <div className='text-danger'>{ValidationMsg.salary}</div>
                                         </Col>
                                     </Form.Group>
                                     <Button
