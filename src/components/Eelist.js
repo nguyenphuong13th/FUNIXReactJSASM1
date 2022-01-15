@@ -98,14 +98,23 @@ function Eelist(props){
         }
     }
     //validate function
-    //validate function when input change
-    const ValidateonInput = (nameValue,scaleSalaryValue,annualLeave,overTime,salary)=>{
+    //validate function when blur out
+    const ValidateonBlur = (nameValue,scaleSalaryValue)=>{
+        const regexName = /^(?:[a-z]+\\){2}[a-z]+$/i
+        console.log(regexName);
+        const regexNumber =  new RegExp('^\d+$')
         const errorMessage={}
-        if(nameValue.length < 3 && nameValue.length > 0 || nameValue.length > 20){
-            errorMessage.name='* Your name must have more than 3 character and less than 20 character'
+        if(nameValue==''||nameValue==null){
+            errorMessage.name='* Trường này không được trống'
+        }else if(regexName.test(nameValue)){
+            errorMessage.name='* Tên không hợp lệ'
         }
-        if(scaleSalaryValue =='' ){
-            errorMessage.scaleSalary='* Please fill this field with numbers'
+        if(scaleSalaryValue =='' || scaleSalaryValue==null ){
+            errorMessage.scaleSalary='* Trường này không được trống'
+            console.log(regexNumber.test(scaleSalaryValue))
+        }else if(!regexNumber.test(scaleSalaryValue)){
+            console.log(regexNumber.test(scaleSalaryValue))
+            errorMessage.scaleSalaryValue='* Trường này phải là số'
         }
         setValidationMsg(errorMessage)
         if(Object.keys(errorMessage).length>0){
@@ -114,9 +123,9 @@ function Eelist(props){
         return true
         }
     }
-    //@take onchanged input
-    const handleOninputForm = (e)=>{
-        const isValid = ValidateonInput(newEe.name,newEe.salaryScale)
+    //@ check when blur out
+    const handleOnblurForm = (e)=>{
+        const isValid = ValidateonBlur(newEe.name,newEe.salaryScale)
     }
     //@desciption : add nhân viên by submit
     const handleSubmitForm = (e)=>{
@@ -197,7 +206,8 @@ function Eelist(props){
                                             value={newEe.name}
                                             //keep all key and value in newEe just update key name value = e.target.value
                                             onChange={(e)=>setnewEe({...newEe,name:e.target.value})}
-                                            onInput={handleOninputForm}/>
+                                            // onInput={handleOninputForm}
+                                            onBlur={handleOnblurForm}/>
                                             <div className='text-danger'>{ValidationMsg.name}</div>
                                         </Col>
                                     </Form.Group>
@@ -222,7 +232,7 @@ function Eelist(props){
                                             <Form.Control
                                             value={newEe.salaryScale}
                                             onChange={(e)=>setnewEe({...newEe,salaryScale:e.target.value})}
-                                            onInput={handleOninputForm}
+                                            onBlur={handleOnblurForm}
                                             />
                                             <div className='text-danger'>{ValidationMsg.scaleSalary}</div>
                                         </Col>
