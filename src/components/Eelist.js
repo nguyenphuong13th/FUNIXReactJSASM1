@@ -100,21 +100,27 @@ function Eelist(props){
     //validate function
     //validate function when blur out
     const ValidateonBlur = (nameValue,scaleSalaryValue)=>{
-        const regexName = /^(?:[a-z]+\\){2}[a-z]+$/i
-        console.log(regexName);
-        const regexNumber =  new RegExp('^\d+$')
+        const regexName =  /^[A-Za-z]+$/
+        const regexNumber =   /^[1-9]*$&\d{1}/
         const errorMessage={}
-        if(nameValue==''||nameValue==null){
-            errorMessage.name='* Trường này không được trống'
-        }else if(regexName.test(nameValue)){
+        // Name validation
+        let nameLength = nameValue.length;
+        if(nameLength <=3){
+            errorMessage.name='* Trường này phải lớn hơn 3 kí tự'
+        }else if(nameLength >=20){
+            errorMessage.name='* Trường này phải nhỏ hơn 20 kí tự'
+        }
+        else if(!regexName.test(nameValue)){
             errorMessage.name='* Tên không hợp lệ'
         }
-        if(scaleSalaryValue =='' || scaleSalaryValue==null ){
+        //scaleSalary validation
+        let scaleSalaryValueLength = scaleSalaryValue.length
+        console.log(scaleSalaryValueLength)
+        console.log(!regexNumber.test(scaleSalaryValue))
+        if(scaleSalaryValueLength == 0 || scaleSalaryValue==null ){
             errorMessage.scaleSalary='* Trường này không được trống'
-            console.log(regexNumber.test(scaleSalaryValue))
         }else if(!regexNumber.test(scaleSalaryValue)){
-            console.log(regexNumber.test(scaleSalaryValue))
-            errorMessage.scaleSalaryValue='* Trường này phải là số'
+            errorMessage.scaleSalary='* Trường này phải là số và nhỏ hơn 10'
         }
         setValidationMsg(errorMessage)
         if(Object.keys(errorMessage).length>0){
@@ -125,7 +131,7 @@ function Eelist(props){
     }
     //@ check when blur out
     const handleOnblurForm = (e)=>{
-        const isValid = ValidateonBlur(newEe.name,newEe.salaryScale)
+        const isValidBlur = ValidateonBlur(newEe.name,newEe.salaryScale)
     }
     //@desciption : add nhân viên by submit
     const handleSubmitForm = (e)=>{
