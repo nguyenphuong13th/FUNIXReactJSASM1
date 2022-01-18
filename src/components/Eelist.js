@@ -11,7 +11,7 @@ function Eelist(props){
     //     setSelectedEe(staffs);
     // }
     //add Staff state
-    const [newEeID,setnewEeID]=useState(props.staffs.length + 1)
+    const [newEeID,setnewEeID]=useState(props.staffs.length)
     const newStaff = {
 
         id: newEeID,
@@ -67,28 +67,28 @@ function Eelist(props){
     const ValidateonSubmit = (nameValue,scaleSalaryValue,doB,startDate,department,annualLeave,overTime,salary)=>{
         const errorMessage={}
         if(nameValue.length <= 3 || nameValue.length >= 20){
-            errorMessage.name='* Your name must have more than 3 character and less than 20 character'
+            errorMessage.name='* Trường này phải lớn hơn 3 kí tự và nhỏ hơn 20 kí tự'
         }
         if(scaleSalaryValue =='' ){
-            errorMessage.scaleSalary='* Please fill this field with numbers'
+            errorMessage.scaleSalary='* Trường này không được bỏ trống'
         }
         if(doB ==""){
-            errorMessage.doB='* Please fill staff birthday'
+            errorMessage.doB='* Trường này không được bỏ trống'
         }
         if(startDate ==""){
-            errorMessage.startDate='* Please fill staff starting working date'
+            errorMessage.startDate='* Trường này không được bỏ trống'
         }
         if(department ==""){
-            errorMessage.department='* Please choose staff department'
+            errorMessage.department='* Trường này không được bỏ trống'
         }
         if(annualLeave ==""){
-            errorMessage.annualLeave='* Please fill the annual leave day remain'
+            errorMessage.annualLeave='* Trường này không được bỏ trống'
         }
         if(overTime ==""){
-            errorMessage.overTime='* Please input overtime hour'
+            errorMessage.overTime='* Trường này không được bỏ trống'
         }
         if(salary ==""){
-            errorMessage.salary='* Please input staff salary'
+            errorMessage.salary='* Trường này không được bỏ trống'
         }
         setValidationMsg(errorMessage)
         if(Object.keys(errorMessage).length>0){
@@ -99,28 +99,67 @@ function Eelist(props){
     }
     //validate function
     //validate function when blur out
-    const ValidateonBlur = (nameValue,scaleSalaryValue)=>{
+    // const ValidateonBlur = (nameValue,scaleSalaryValue,annualLeaveValue,overTimeValue,salaryValue)=>{
+    //     const regexName =  /^[A-Za-z]+$/
+    //     const errorMessage={}
+    //     // Name field validation
+    //     let nameLength = nameValue.length;
+    //     if(nameLength <=3){
+    //         errorMessage.name='* Trường này phải lớn hơn 3 kí tự'
+    //     }else if(nameLength >=20){
+    //         errorMessage.name='* Trường này phải nhỏ hơn 20 kí tự'
+    //     }
+    //     else if(!regexName.test(nameValue)){
+    //         errorMessage.name='* Tên không hợp lệ'
+    //     }
+        //scaleSalary field validation
+    //     let scaleSalaryValueLength = scaleSalaryValue.length
+    //     if(scaleSalaryValueLength == 0 || scaleSalaryValue==null ){
+    //         errorMessage.scaleSalary='* Trường này không được trống'
+    //     }else if(isNaN(Number(scaleSalaryValue)) || Number(scaleSalaryValue)<0 || Number(scaleSalaryValue)>10){
+    //         errorMessage.scaleSalary='* Trường này phải là số dương và nhỏ hơn 10'
+    //     }
+    //     // Anual leave field validation
+    //     let annualLeaveLength = annualLeaveValue.length
+    //     if(annualLeaveLength == 0 || annualLeaveLength==null ){
+    //         errorMessage.annualLeave='* Trường này không được trống'
+    //     }else if(isNaN(Number(annualLeaveValue)) || Number(annualLeaveValue) < 0){
+    //         errorMessage.annualLeave='* Trường này phải là số dương'
+    //     }
+    //     // overtime field validation
+    //     let overTimeValueLength = overTimeValue.length
+    //     if(overTimeValueLength == 0 || overTimeValueLength==null ){
+    //         errorMessage.overTime='* Trường này không được trống'
+    //     }else if(isNaN(Number(overTimeValue)) || Number(overTimeValue) < 0){
+    //         errorMessage.overTime='* Trường này phải là số dương'
+    //     }
+    //     // salary field validation
+    //     let salaryValueLength = salaryValue.length
+    //     if(salaryValueLength == 0 || salaryValueLength==null ){
+    //         errorMessage.salary='* Trường này không được trống'
+    //     }else if(isNaN(Number(salaryValue)) || Number(salaryValue) < 0){
+    //         errorMessage.salary='* Trường này phải là số dương'
+    //     }
+    //     setValidationMsg(errorMessage)
+    //     if(Object.keys(errorMessage).length>0){
+    //         return false
+    //     }else{
+    //     return true
+    //     }
+    // }
+    // text validation
+    const ValidateonBlurText = (textValue)=>{
         const regexName =  /^[A-Za-z]+$/
-        const regexNumber =   /^[1-9]*$&\d{1}/
         const errorMessage={}
-        // Name validation
-        let nameLength = nameValue.length;
-        if(nameLength <=3){
-            errorMessage.name='* Trường này phải lớn hơn 3 kí tự'
-        }else if(nameLength >=20){
-            errorMessage.name='* Trường này phải nhỏ hơn 20 kí tự'
+        // Name field validation
+        let textValueLength = textValue.length;
+        if(textValueLength <=3){
+            errorMessage.wrongtext='* Trường này phải lớn hơn 3 kí tự'
+        }else if(textValueLength >=20){
+            errorMessage.wrongtext='* Trường này phải nhỏ hơn 20 kí tự'
         }
-        else if(!regexName.test(nameValue)){
-            errorMessage.name='* Tên không hợp lệ'
-        }
-        //scaleSalary validation
-        let scaleSalaryValueLength = scaleSalaryValue.length
-        console.log(scaleSalaryValueLength)
-        console.log(!regexNumber.test(scaleSalaryValue))
-        if(scaleSalaryValueLength == 0 || scaleSalaryValue==null ){
-            errorMessage.scaleSalary='* Trường này không được trống'
-        }else if(!regexNumber.test(scaleSalaryValue)){
-            errorMessage.scaleSalary='* Trường này phải là số và nhỏ hơn 10'
+        else if(!regexName.test(textValue)){
+            errorMessage.wrongtext='* Tên không hợp lệ'
         }
         setValidationMsg(errorMessage)
         if(Object.keys(errorMessage).length>0){
@@ -129,31 +168,45 @@ function Eelist(props){
         return true
         }
     }
-    //@ check when blur out
+    // number validation
+    const ValidateonBlurNumber = (numberValue)=>{
+        const errorMessage={}
+        let numberValueLength = numberValue.length
+        if(numberValueLength == 0 || numberValue==null ){
+            errorMessage.wrongNumber='* Trường này không được trống'
+        }else if(isNaN(Number(numberValue)) || Number(numberValue)<0 || Number(numberValue)>10){
+            errorMessage.wrongNumber='* Trường này phải là số dương và nhỏ hơn 10'
+        }
+        setValidationMsg(errorMessage)
+        if(Object.keys(errorMessage).length>0){
+            return false
+        }else{
+        return true
+        }
+    }
+
     const handleOnblurForm = (e)=>{
-        const isValidBlur = ValidateonBlur(newEe.name,newEe.salaryScale)
+    // ValidateonBlur(newEe.name,newEe.salaryScale,newEe.annualLeave,newEe.overTime,newEe.salary)
+        ValidateonBlurText(newEe.name)
+        ValidateonBlurNumber(newEe.salaryScale)
+        ValidateonBlurNumber(newEe.annualLeave)
+        ValidateonBlurNumber(newEe.overTime)
+        ValidateonBlurNumber(newEe.salary)
+
     }
     //@desciption : add nhân viên by submit
     const handleSubmitForm = (e)=>{
         e.preventDefault();
         const isValid = ValidateonSubmit(newEe.name,newEe.salaryScale,newEe.doB,newEe.startDate,newEe.department,newEe.annualLeave,newEe.overTime,newEe.salary)
-        console.log(isValid)
         if (!isValid){
             return
         }else{
             props.handleAddStaff(newEe)
             setShow(!show)
             setnewEe(newStaff)
+            setnewEeID(props.staffs.length + 1)
         }
     }
-    //@desciption : add nhân viên by onclick
-    const handleAdd = (e)=>{
-        e.preventDefault();
-        props.handleAddStaff(newEe)
-        setShow(!show)
-
-    }
-
     const Liststaff = props.staffs.map((staffs)=>{
         return(
             <>
@@ -185,13 +238,33 @@ function Eelist(props){
     return (
         <div className='container mt-3'>
             <div className='row'>
-                <div className='d-flex justify-content-between'>
-                    <h3>Nhân Viên</h3>
+                <div>
+                    <div className='d-flex flex-sm-column flex-md-row flex-lg-row  justify-content-sm-center justify-content-md-between justify-content-lg-between align-items-center'>
+                        <div className='d-flex align-items-center'>
+                            <h3 className='text-sm-center m-3'>Nhân Viên</h3>
+                            {/* add newee button */}
+                            <Button variant="primary" onClick={()=>{setShow(!show);setnewEe(newStaff)}}>
+                                    <FontAwesomeIcon icon={faPlus}/>
+                            </Button>
+                        </div>
+                        {/* Search Bar */}
+                        <Form className="d-flex mt-sm-3" onSubmit={handleSubmit}>
+                            <FormControl
+                            type="search"
+                            placeholder='Search'
+                            className="me-2"
+                            aria-label="Search"
+                            value={searchEeName}
+                            onChange={(e) => setsearchEeName(e.target.value)}
+                            />
+                            <Button
+                            variant="outline-success"
+                            type='submit'
+                            >Search</Button>
+                        </Form>
+                    </div>
                     {/*Form add Employee*/}
                     <div>
-                        <Button variant="primary" onClick={()=>{setShow(!show);setnewEe(newStaff)}}>
-                            <FontAwesomeIcon icon={faPlus}/>
-                        </Button>
                         <Modal show={show}>
                             <Modal.Header >
                                 <Modal.Title>Thêm Nhân Viên</Modal.Title>
@@ -240,7 +313,7 @@ function Eelist(props){
                                             onChange={(e)=>setnewEe({...newEe,salaryScale:e.target.value})}
                                             onBlur={handleOnblurForm}
                                             />
-                                            <div className='text-danger'>{ValidationMsg.scaleSalary}</div>
+                                            <div className='text-danger'>{ValidationMsg.wrongNumber}</div>
                                         </Col>
                                     </Form.Group>
                                     <Form.Group as={Row} className="mb-3">
@@ -283,10 +356,11 @@ function Eelist(props){
                                         </Form.Label>
                                         <Col sm="9">
                                             <Form.Control
-                                            type="number"
                                             value={newEe.annualLeave}
-                                            onChange={(e)=>setnewEe({...newEe,annualLeave:e.target.value})}/>
-                                            <div className='text-danger'>{ValidationMsg.annualLeave}</div>
+                                            onChange={(e)=>setnewEe({...newEe,annualLeave:e.target.value})}
+                                            onBlur={handleOnblurForm}
+                                            />
+                                            <div className='text-danger'>{ValidationMsg.wrongNumber}</div>
                                         </Col>
                                     </Form.Group>
                                     <Form.Group as={Row} className="mb-3">
@@ -295,11 +369,11 @@ function Eelist(props){
                                         </Form.Label>
                                         <Col sm="9">
                                         <Form.Control
-                                            type="number"
                                             value={newEe.overTime}
                                             onChange={(e)=>setnewEe({...newEe,overTime:e.target.value})}
+                                            onBlur={handleOnblurForm}
                                             />
-                                            <div className='text-danger'>{ValidationMsg.overTime}</div>
+                                            <div className='text-danger'>{ValidationMsg.wrongNumber}</div>
                                         </Col>
                                     </Form.Group>
                                     <Form.Group as={Row} className="mb-3">
@@ -308,44 +382,24 @@ function Eelist(props){
                                         </Form.Label>
                                         <Col sm="9">
                                         <Form.Control
-                                            type="number"
                                             value={newEe.salary}
                                             onChange={(e)=>setnewEe({...newEe,salary:e.target.value})}
+                                            onBlur={handleOnblurForm}
                                             />
-                                            <div className='text-danger'>{ValidationMsg.salary}</div>
+                                            <div className='text-danger'>{ValidationMsg.wrongNumber}</div>
                                         </Col>
                                     </Form.Group>
+                                    <hr></hr>
                                     <Button
                                     variant="primary"
-                                    type="submit">
+                                    type="submit"
+                                    className='mt-3'>
                                     Thêm
                                     </Button>
                                 </Form>
-
                             </Modal.Body>
-                            <Modal.Footer>
-                                    <Button
-                                    variant="primary" onClick={handleAdd}>
-                                    Add
-                                    </Button>
-                            </Modal.Footer>
                         </Modal>
                     </div>
-                    {/* Search Bar */}
-                    <Form className="d-flex" onSubmit={handleSubmit}>
-                        <FormControl
-                        type="search"
-                        placeholder='Search'
-                        className="me-2"
-                        aria-label="Search"
-                        value={searchEeName}
-                        onChange={(e) => setsearchEeName(e.target.value)}
-                        />
-                        <Button
-                        variant="outline-success"
-                        type='submit'
-                        >Search</Button>
-                    </Form>
 
                 </div>
                 {Buttonclick ? SearchedEe:Liststaff}
