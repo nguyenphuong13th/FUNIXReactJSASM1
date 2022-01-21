@@ -1,5 +1,6 @@
 import dateFormat, { masks } from "dateformat";
 function EedetailComponent(props){
+    // take selectedStaff props from StaffList
     if(props.selectedStaff!==null){
                 return (
                     <div key={props.selectedStaff.id} className='mt-5 text-center' id="myTable">
