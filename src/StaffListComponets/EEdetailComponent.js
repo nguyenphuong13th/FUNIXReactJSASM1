@@ -3,6 +3,7 @@ function EedetailComponent(props){
     // take selectedStaff props from StaffList
     if(props.selectedStaff!==null){
                 return (
+                    // display EE infomation
                     <div key={props.selectedStaff.id} className='mt-5 text-center' id="myTable">
                         <table className="table table-dark table-hover">
                             <thead>
