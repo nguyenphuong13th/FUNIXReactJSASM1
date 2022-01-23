@@ -1,4 +1,4 @@
-import dateFormat, { masks } from "dateformat";
+import dateFormat, { masks } from "dateformat"; //add dateformat to code
 function EedetailComponent(props){
     // take selectedStaff props from StaffList
     if(props.selectedStaff!==null){
