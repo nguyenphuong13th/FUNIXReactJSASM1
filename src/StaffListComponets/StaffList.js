@@ -2,6 +2,7 @@ import { useState } from "react"
 import EedetailComponent from "./EEdetailComponent"
 const StaffList = (props) =>{
     //use hook useState to change state everytime click on an employee
+    // hello
     const[selectedEe,setSelectedEe] = useState(null)
     const OnSelectedEe = (staffs)=>{
         setSelectedEe(staffs);
