@@ -6,6 +6,7 @@ const StaffList = (props) =>{
     const OnSelectedEe = (staffs)=>{
         setSelectedEe(staffs);
     }
+    //make a variable for the employee information
     const Liststaff = props.staffs.map((staffs)=>{
         return(
             <div key={staffs.id} onClick={()=>OnSelectedEe(staffs)} className='col-sm-12 col-md-6 col-lg-3 mt-1'>
@@ -15,12 +16,14 @@ const StaffList = (props) =>{
             </div>
         )
     })
+    // render employee list to browser
     return (
         <div className='container mt-5'>
             <div className='row'>
                 {Liststaff}
             </div>
             <div className='row'>
+                {/* selectedEE pass to EedetailComponent as a prop  */}
                <EedetailComponent selectedStaff ={selectedEe} />
             </div>
         </div>

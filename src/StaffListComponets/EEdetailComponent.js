@@ -16,6 +16,7 @@ function EedetailComponent(props){
                                     <th>Số ngày đã làm thêm</th>
                                 </tr>
                             </thead>
+                            {/* use dateformat to return employee infomation take value from ten charracter form beggining */}
                             <tbody>
                                 <tr>
                                     <td data-label = 'Họ và Tên'>{props.selectedStaff.name}</td>
