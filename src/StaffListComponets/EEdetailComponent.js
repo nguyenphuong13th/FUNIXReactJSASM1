@@ -1,9 +1,9 @@
 import dateFormat, { masks } from "dateformat";
 function EedetailComponent(props){
+    // take selectedStaff props from StaffList
     if(props.selectedStaff!==null){
-        console.log((props.selectedStaff.doB).slice(0,10))
                 return (
-
+                    // display EE infomation
                     <div key={props.selectedStaff.id} className='mt-5 text-center' id="myTable">
                         <table className="table table-dark table-hover">
                             <thead>
@@ -17,6 +17,7 @@ function EedetailComponent(props){
                                 </tr>
                             </thead>
                             <tbody>
+                                {/* use dateformat to return employee infomation take value from ten charracter form beggining */}
                                 <tr>
                                     <td data-label = 'Họ và Tên'>{props.selectedStaff.name}</td>
                                     <td data-label = 'Ngày sinh'>{dateFormat((props.selectedStaff.doB).slice(0,10),'dd/mm/yyyy')}</td>
