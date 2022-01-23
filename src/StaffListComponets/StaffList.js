@@ -16,7 +16,6 @@ const StaffList = (props) =>{
             </div>
         )
     })
-    // render employee list to browser
     return (
         <div className='container mt-5'>
             <div className='row'>
