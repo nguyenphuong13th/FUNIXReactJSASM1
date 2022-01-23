@@ -18,6 +18,7 @@ function EedetailComponent(props){
                             </thead>
                             {/* use dateformat to return employee infomation take value from ten charracter form beggining */}
                             <tbody>
+                                {/* use dateformat to return employee infomation take value from ten charracter form beggining */}
                                 <tr>
                                     <td data-label = 'Họ và Tên'>{props.selectedStaff.name}</td>
                                     <td data-label = 'Ngày sinh'>{dateFormat((props.selectedStaff.doB).slice(0,10),'dd/mm/yyyy')}</td>
