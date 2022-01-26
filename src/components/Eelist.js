@@ -7,8 +7,6 @@ function Eelist(props){
     const OnSelectedEe = (staffs)=>{
         setSelectedEe(staffs);
     }
-
-
     const Liststaff = props.staffs.map((staffs)=>{
         return(
             <div key={staffs.id} onClick={()=>OnSelectedEe(staffs)} className='col-sm-12 col-md-6 col-lg-3 mt-5'>
