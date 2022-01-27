@@ -64,7 +64,7 @@ function Eelist(props){
         else{
 
                 setsortedEeList(initialEeList.sort(function(b,a){
-                    return a.salaryScale - b.salaryScale;
+                    return b.salaryScale - a.salaryScale;
                 }))
                 alert(JSON.stringify(initialEeList))
                 setsortedEeList(initialEeList)
