@@ -43,25 +43,32 @@ function Eelist(props){
         const initialEeList = [...sortedEeList]
         // Nếu chọn tên thì sẽ lấy ra mảng đã sắp xếp theo tên
         if(selectedOption == 'Name'){
-            setsortedEeList(initialEeList.sort(function(a,b){
-                var nameA = a.name.toUpperCase(); // ignore upper and lowercase
-                var nameB = b.name.toUpperCase(); // ignore upper and lowercase
-                if (nameA < nameB ) {
-                  return 1;
-                }
-                if (nameA > nameB) {
-                  return -1;
-                }
+            // if(switchOption){
+                initialEeList.sort(function(a,b){
+                    var nameA = a.name.toUpperCase(); // ignore upper and lowercase
+                    var nameB = b.name.toUpperCase(); // ignore upper and lowercase
+                    if (nameA < nameB ) {
+                    return -1;
+                    }
+                    if (nameA > nameB) {
+                    return 1;
+                    }
 
-                // names must be equal
-                return 0;
-            }))
-            // Nếu chọn chỉ số lương thì sẽ lấy ra mảng đã sắp xếp theo hệ số lương từ thấp tới cao
+                    // names must be equal
+                    return 0;
+                })
+                alert(JSON.stringify(initialEeList))
+                setsortedEeList(initialEeList)
+                // Nếu chọn chỉ số lương thì sẽ lấy ra mảng đã sắp xếp theo hệ số lương từ thấp tới cao
+        }
+        else{
 
-        }else if(selectedOption=='Salary'){
-            setsortedEeList(initialEeList.sort(function(a,b){
-                return a.salaryScale - b.salaryScale;
-            }))
+                setsortedEeList(initialEeList.sort(function(b,a){
+                    return a.salaryScale - b.salaryScale;
+                }))
+                alert(JSON.stringify(initialEeList))
+                setsortedEeList(initialEeList)
+
         }
     }
     const Liststaff = sortedEeList.map((staffs)=>{
