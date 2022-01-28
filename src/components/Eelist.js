@@ -37,38 +37,59 @@ function Eelist(props){
     const OnSelectedEe = (staffs)=>{
         setSelectedEe(staffs);
     }
+    const sortedNameFunction = (targetArray)=>{
+        targetArray.sort(function(a,b){
+            var valueA = a.name.toUpperCase();
+            var valueB = b.name.toUpperCase();
+            if (valueA < valueB){
+                return -1;
+            }
+            if(valueA > valueB){
+                return 1
+            }
+            return 0
+        })
+    }
+    const sortedSalaryScaleFunction = (targetArray)=>{
+        targetArray.sort(function(a,b){
+            return b.salaryScale - a.salaryScale;
+        })
+    }
+    const sortedDepartmentFunction = (targetArray)=>{
+        targetArray.sort(function(a,b){
+            var valueA = a.department.name.toUpperCase();
+            var valueB = b.department.name.toUpperCase();
+            if (valueA < valueB){
+                return -1;
+            }
+            if(valueA > valueB){
+                return 1
+            }
+            return 0
+        })
+    }
     function handleOnCHange(e){
         const selectedOption = e.target.value
         //khi gọi hàm này , thì khởi tạo 1 array mới để giá trị luôn luôn đc render lại
         const initialEeList = [...sortedEeList]
         // Nếu chọn tên thì sẽ lấy ra mảng đã sắp xếp theo tên
         if(selectedOption == 'Name'){
-            // if(switchOption){
-                initialEeList.sort(function(a,b){
-                    var nameA = a.name.toUpperCase(); // ignore upper and lowercase
-                    var nameB = b.name.toUpperCase(); // ignore upper and lowercase
-                    if (nameA < nameB ) {
-                    return -1;
-                    }
-                    if (nameA > nameB) {
-                    return 1;
-                    }
-
-                    // names must be equal
-                    return 0;
-                })
+                sortedNameFunction(initialEeList);
                 alert(JSON.stringify(initialEeList))
                 setsortedEeList(initialEeList)
                 // Nếu chọn chỉ số lương thì sẽ lấy ra mảng đã sắp xếp theo hệ số lương từ thấp tới cao
         }
-        else{
+        else if(selectedOption == 'Salary'){
 
-                setsortedEeList(initialEeList.sort(function(b,a){
-                    return b.salaryScale - a.salaryScale;
-                }))
+                sortedSalaryScaleFunction(initialEeList)
                 alert(JSON.stringify(initialEeList))
                 setsortedEeList(initialEeList)
 
+        }
+        else{
+            sortedDepartmentFunction(initialEeList)
+            alert(JSON.stringify(initialEeList))
+            setsortedEeList(initialEeList)
         }
     }
     const Liststaff = sortedEeList.map((staffs)=>{
