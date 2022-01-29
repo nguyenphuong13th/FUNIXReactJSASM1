@@ -1,15 +1,18 @@
 import { Card,CardImg,CardTitle } from 'reactstrap'
-import { Form,Container,Col,Row } from 'react-bootstrap';
+import { Form,Container,Col,Row,FormControl,Button } from 'react-bootstrap';
 import { useState } from "react"
 import { Link } from 'react-router-dom';
 import logo from '../assets/images/alberto.png'
 import { check } from 'prettier';
 function Eelist(props){
 
-// this is a test
+// ------hook use state---------------------------------------------------------------------------
     const[sortedEeList,setsortedEeList]=useState(props.staffs);
     const[selectedEe,setSelectedEe] = useState(null)
     const[accendingsort,setaccendingsort] = useState(false)
+    const [FilterdEeName,setFilterdEeName] =  useState([])
+    const[searchEeName,setsearchEeName]= useState('')
+    const[Buttonclick,setButtonclick]= useState(false)
     //Sort by ID
     // const onSortChangeId = () =>{
     //    //khi gọi hàm này , thì khởi tạo 1 array mới để giá trị luôn luôn đc render lại
@@ -101,7 +104,20 @@ function Eelist(props){
         alert(accendingsort);
     }
     //------------------------------------------------------------------------------------------
+    function handleSubmit(e){
+        e.preventDefault();
+        const newFilter = props.staffs.filter((value)=>{
+            return value.name.toLowerCase().includes(searchEeName.toLowerCase())
+        })
+        if(searchEeName===""){
+            setFilterdEeName([])
+        }else{
+            setFilterdEeName(newFilter);
+        }
+        setButtonclick(true)
 
+    }
+    //------------------------------------------------------------------------------------------
     const Liststaff = sortedEeList.map((staffs)=>{
         return(
             <div key={staffs.id} onClick={()=>OnSelectedEe(staffs)} className='col-sm-12 col-md-6 col-lg-3 mt-5'>
@@ -115,6 +131,22 @@ function Eelist(props){
             </div>
         )
     })
+    //---------------------------------------------------------------------------------------------
+    const SearchedEe =  FilterdEeName.map((staffs)=>{
+        return(
+            <>
+                <div key={staffs.id} className='col-sm-12 col-md-6 col-lg-3 mt-5'>
+                    <Link className='text-decoration-none text-dark' to={`/${staffs.id}`}>
+                        <Card body className="text-center">
+                            <CardImg  width='100%' src={logo} alt={staffs.name}/>
+                            <CardTitle >{staffs.name}</CardTitle>
+                        </Card>
+                    </Link>
+                </div>
+            </>
+        )
+    })
+    //---------------------------------------------------------------------------------------------
     return (
         <div className='container mt-5'>
             <div className='row'>
@@ -136,9 +168,30 @@ function Eelist(props){
                             onChange={handleOnChangeCheckBox}
                             />
                         </Col>
+                        <Col xs lg='4'>
+                            <Form className="d-flex" onSubmit={handleSubmit}>
+                                        <FormControl
+                                        type="search"
+                                        placeholder='Search'
+                                        className="me-2"
+                                        aria-label="Search"
+                                        value={searchEeName}
+                                        onChange={(e) => setsearchEeName(e.target.value)}
+                                        />
+                                        <Button
+                                        variant="outline-success"
+                                        type='submit'
+                                        >Search</Button>
+                            </Form>
+                        </Col>
+                    </Row>
+
+                {/* Searchbar area ------------------------------------------------0*/}
+                    <Row>
+
                     </Row>
                 </Container>
-                {Liststaff}
+                {Buttonclick ? SearchedEe:Liststaff}
             </div>
         </div>
     )

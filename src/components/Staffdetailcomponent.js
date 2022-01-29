@@ -1,6 +1,6 @@
-import { Routes,Route,Link,NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useParams } from "react-router-dom";
-import { Card,CardImg,CardImgOverlay,CardText,CardBody,CardTitle } from 'reactstrap'
+import { Card,CardImg,CardText,CardTitle } from 'reactstrap'
 import dateFormat, { masks } from "dateformat";
 import logo from '../assets/images/alberto1.png';
 function Staffdetailcomponent(props){

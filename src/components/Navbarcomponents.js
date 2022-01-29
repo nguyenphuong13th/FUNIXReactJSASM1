@@ -16,15 +16,6 @@ function Navbarcomponent(){
                         <Nav.Link><NavLink to='/department' className='text-light nav-link'><FontAwesomeIcon icon={faIdCard}/> Phòng Ban</NavLink></Nav.Link>
                         <Nav.Link><NavLink to='/salary' className='text-light nav-link'><FontAwesomeIcon icon={faMoneyBill}/> Lương</NavLink></Nav.Link>
                     </Nav>
-                    <Form className="d-flex">
-                        <FormControl
-                        type="search"
-                        placeholder="Search"
-                        className="me-2"
-                        aria-label="Search"
-                        />
-                        <Button variant="outline-light">Search</Button>
-                    </Form>
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
