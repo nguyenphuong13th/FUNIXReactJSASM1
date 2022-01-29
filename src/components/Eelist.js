@@ -9,6 +9,7 @@ function Eelist(props){
 // this is a test
     const[sortedEeList,setsortedEeList]=useState(props.staffs);
     const[selectedEe,setSelectedEe] = useState(null)
+    const[accendingsort,setaccendingsort] = useState(false)
     //Sort by ID
     // const onSortChangeId = () =>{
     //    //khi gọi hàm này , thì khởi tạo 1 array mới để giá trị luôn luôn đc render lại
@@ -37,17 +38,18 @@ function Eelist(props){
     const OnSelectedEe = (staffs)=>{
         setSelectedEe(staffs);
     }
+    // -------sorting Function--------------
     const sortedNameFunction = (targetArray)=>{
         targetArray.sort(function(a,b){
             var valueA = a.name.toUpperCase();
             var valueB = b.name.toUpperCase();
-            if (valueA < valueB){
-                return -1;
-            }
-            if(valueA > valueB){
-                return 1
-            }
-            return 0
+                if (valueA < valueB){
+                    return -1;
+                }
+                if(valueA > valueB){
+                    return 1
+                }
+                return 0
         })
     }
     const sortedSalaryScaleFunction = (targetArray)=>{
@@ -68,6 +70,7 @@ function Eelist(props){
             return 0
         })
     }
+    //-----------------------------------------------------------
     function handleOnCHange(e){
         const selectedOption = e.target.value
         //khi gọi hàm này , thì khởi tạo 1 array mới để giá trị luôn luôn đc render lại
@@ -80,7 +83,6 @@ function Eelist(props){
                 // Nếu chọn chỉ số lương thì sẽ lấy ra mảng đã sắp xếp theo hệ số lương từ thấp tới cao
         }
         else if(selectedOption == 'Salary'){
-
                 sortedSalaryScaleFunction(initialEeList)
                 alert(JSON.stringify(initialEeList))
                 setsortedEeList(initialEeList)
@@ -92,6 +94,14 @@ function Eelist(props){
             setsortedEeList(initialEeList)
         }
     }
+    //------------------------------------------------------------------------------------------
+    function handleOnChangeCheckBox(e){
+        const checkOption = e.target.value
+        setaccendingsort(!accendingsort)
+        alert(accendingsort);
+    }
+    //------------------------------------------------------------------------------------------
+
     const Liststaff = sortedEeList.map((staffs)=>{
         return(
             <div key={staffs.id} onClick={()=>OnSelectedEe(staffs)} className='col-sm-12 col-md-6 col-lg-3 mt-5'>
@@ -123,6 +133,7 @@ function Eelist(props){
                             </Form.Select>
                             <Form.Check label="Accendisng"
                             value={'Accending'}
+                            onChange={handleOnChangeCheckBox}
                             />
                         </Col>
                     </Row>
