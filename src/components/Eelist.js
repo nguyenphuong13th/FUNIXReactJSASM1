@@ -14,7 +14,7 @@ function Eelist(props){
     const OnSelectedEe = (staffs)=>{
         setSelectedEe(staffs);
     }
-    // Sorting Function-----------------------------------------------------------------------
+    // Sorting Function (name,salary,department)-----------------------------------------------------------------------
     const sortedNameFunction = (targetArray)=>{
         targetArray.sort(function(a,b){
             var valueA = a.name.toUpperCase();
@@ -57,13 +57,12 @@ function Eelist(props){
                 setsortedEeList(initialEeList)
                 // Nếu chọn chỉ số lương thì sẽ lấy ra mảng đã sắp xếp theo hệ số lương từ thấp tới cao
         }
-        else if(selectedOption == 'Salary'){
+        else if(selectedOption == 'Salary Scale'){
                 sortedSalaryScaleFunction(initialEeList)
                 setsortedEeList(initialEeList)
         }
         else{
             sortedDepartmentFunction(initialEeList)
-            alert(JSON.stringify(initialEeList))
             setsortedEeList(initialEeList)
         }
     }
@@ -124,7 +123,7 @@ function Eelist(props){
                                 <option>Sort by :</option>
                                 <option value="Name">Name</option>
                                 <option value="Department">Department</option>
-                                <option value="Salary">Salary</option>
+                                <option value="Salary Scale">Salary Scale</option>
                             </Form.Select>
                         </Col>
                         <Col xs lg='4'>
