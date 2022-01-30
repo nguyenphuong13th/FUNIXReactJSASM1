@@ -1,4 +1,4 @@
-import { Routes,Route,Link,NavLink } from 'react-router-dom';
+import {Link } from 'react-router-dom';
 import { Card,CardText,CardTitle } from 'reactstrap'
 function Staffsalarycomponent(props){
     const basicSalary= 3000000

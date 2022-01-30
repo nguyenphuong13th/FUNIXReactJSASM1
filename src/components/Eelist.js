@@ -3,45 +3,18 @@ import { Form,Container,Col,Row,FormControl,Button } from 'react-bootstrap';
 import { useState } from "react"
 import { Link } from 'react-router-dom';
 import logo from '../assets/images/alberto.png'
-import { check } from 'prettier';
 function Eelist(props){
 
 // ------hook use state---------------------------------------------------------------------------
     const[sortedEeList,setsortedEeList]=useState(props.staffs);
     const[selectedEe,setSelectedEe] = useState(null)
-    const[accendingsort,setaccendingsort] = useState(false)
     const [FilterdEeName,setFilterdEeName] =  useState([])
     const[searchEeName,setsearchEeName]= useState('')
     const[Buttonclick,setButtonclick]= useState(false)
-    //Sort by ID
-    // const onSortChangeId = () =>{
-    //    //khi gọi hàm này , thì khởi tạo 1 array mới để giá trị luôn luôn đc render lại
-    //    const copy = [...sortedEeList];
-
-    //     // check xem là cái sort là tăng hay giảm dựa trên cái sortSortedEeLists
-    //     // nếu là true thì sort lại cái copy ở trên vì ở dứoi đã set cái lisst nhân viên = copy rồi
-    //     if(sortSortedEeLists){
-    //         copy.sort(function (a,b){
-    //             return b.id - a.id
-    //         })
-    //     }else{
-    //         copy.sort(function (a,b){
-    //             return a.id - b.id
-    //         })
-    //     }
-    //     //ở đây cũng cần phải set lại cái sortSortedEeListsd để nếu đang là tăng dần thì lần sort sau sẽ là giảm và ngược lại
-    //     setSortsortSortedEeLists(!sortSortedEeLists);
-    //    //ở cuối function sẽ set lại cái list nhân viên = cái array mới này
-    //    setsortedEeList(copy);
-    //    khi gọi sort phải tạo lại cái list nhân viên mới
-    //
-    // }
-
-
     const OnSelectedEe = (staffs)=>{
         setSelectedEe(staffs);
     }
-    // -------sorting Function--------------
+    // Sorting Function-----------------------------------------------------------------------
     const sortedNameFunction = (targetArray)=>{
         targetArray.sort(function(a,b){
             var valueA = a.name.toUpperCase();
@@ -81,15 +54,12 @@ function Eelist(props){
         // Nếu chọn tên thì sẽ lấy ra mảng đã sắp xếp theo tên
         if(selectedOption == 'Name'){
                 sortedNameFunction(initialEeList);
-                alert(JSON.stringify(initialEeList))
                 setsortedEeList(initialEeList)
                 // Nếu chọn chỉ số lương thì sẽ lấy ra mảng đã sắp xếp theo hệ số lương từ thấp tới cao
         }
         else if(selectedOption == 'Salary'){
                 sortedSalaryScaleFunction(initialEeList)
-                alert(JSON.stringify(initialEeList))
                 setsortedEeList(initialEeList)
-
         }
         else{
             sortedDepartmentFunction(initialEeList)
@@ -97,13 +67,7 @@ function Eelist(props){
             setsortedEeList(initialEeList)
         }
     }
-    //------------------------------------------------------------------------------------------
-    function handleOnChangeCheckBox(e){
-        const checkOption = e.target.value
-        setaccendingsort(!accendingsort)
-        alert(accendingsort);
-    }
-    //------------------------------------------------------------------------------------------
+    //Search Function---------------------------------------------------------------------------------------
     function handleSubmit(e){
         e.preventDefault();
         const newFilter = props.staffs.filter((value)=>{
@@ -115,7 +79,6 @@ function Eelist(props){
             setFilterdEeName(newFilter);
         }
         setButtonclick(true)
-
     }
     //------------------------------------------------------------------------------------------
     const Liststaff = sortedEeList.map((staffs)=>{
@@ -163,10 +126,6 @@ function Eelist(props){
                                 <option value="Department">Department</option>
                                 <option value="Salary">Salary</option>
                             </Form.Select>
-                            <Form.Check label="Accendisng"
-                            value={'Accending'}
-                            onChange={handleOnChangeCheckBox}
-                            />
                         </Col>
                         <Col xs lg='4'>
                             <Form className="d-flex" onSubmit={handleSubmit}>
@@ -184,11 +143,6 @@ function Eelist(props){
                                         >Search</Button>
                             </Form>
                         </Col>
-                    </Row>
-
-                {/* Searchbar area ------------------------------------------------0*/}
-                    <Row>
-
                     </Row>
                 </Container>
                 {Buttonclick ? SearchedEe:Liststaff}
