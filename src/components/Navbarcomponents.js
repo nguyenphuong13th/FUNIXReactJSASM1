@@ -1,8 +1,8 @@
-import { Routes,Route,Link,NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faIdCard,faMoneyBill,faUsers } from '@fortawesome/free-solid-svg-icons'
 import brand from '../assets/images/brand.jpg'
-import {Navbar,NavDropdown,NavItem,Container,Nav,Form,FormControl,Button} from 'react-bootstrap'
+import {Navbar,Container,Nav} from 'react-bootstrap'
 function Navbarcomponent(){
     return(
         <div>

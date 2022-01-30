@@ -120,10 +120,10 @@ function Eelist(props){
                         <Col md="auto">
                             <Form.Select aria-label="Default select example"
                             onChange={handleOnCHange}>
-                                <option>Sort by :</option>
-                                <option value="Name">Name</option>
-                                <option value="Department">Department</option>
-                                <option value="Salary Scale">Salary Scale</option>
+                                <option>Sắp xếp theo:</option>
+                                <option value="Name">Tên</option>
+                                <option value="Department">Phòng ban</option>
+                                <option value="Salary Scale">Hệ số Lương</option>
                             </Form.Select>
                         </Col>
                         <Col xs lg='4'>
@@ -139,7 +139,7 @@ function Eelist(props){
                                         <Button
                                         variant="outline-success"
                                         type='submit'
-                                        >Search</Button>
+                                        >Tìm Kiếm</Button>
                             </Form>
                         </Col>
                     </Row>
