@@ -1,7 +1,7 @@
 import {Link } from 'react-router-dom';
 import { useState } from "react";
 import { Card,CardText,CardTitle } from 'reactstrap'
-import { Form,Container,Col,Row,FormControl,Button } from 'react-bootstrap';
+import { Form,Container,Col,Row } from 'react-bootstrap';
 function Staffsalarycomponent(props){
     const[sortedEeList,setsortedEeList]=useState(props.staffs);
     const basicSalary= 3000000
@@ -34,7 +34,7 @@ function Staffsalarycomponent(props){
     const Staffinfo= sortedEeList.map((Staffinfo)=>{
         const salary = Math.ceil((Staffinfo.salaryScale*basicSalary)+(Staffinfo.overTime*overTimeSalary))
         return(
-            <div key={Staffinfo.id} className="col-sm-12 col-md-6 col-lg-3 mt-1">
+            <div key={Staffinfo.id} className="col-sm-12 col-md-6 col-lg-3 mt-3">
                 <Card body className="text-center mt-2">
                     <CardTitle className='fs-3'>{Staffinfo.name}</CardTitle>
                     <CardText>Mã nhân viên:{Staffinfo.id}</CardText>
@@ -48,16 +48,26 @@ function Staffsalarycomponent(props){
     })
     return(
         <div className='container mt-1'>
-            <Link to = '/'>Nhân viên</Link><span>/Lương</span>
-            <div className='row'>
-                <Form.Select aria-label="Default select example"
-                onChange={handleOnChange}>
-                    <option>Sắp xếp theo:</option>
-                    <option value="Mã Nhân Viên">Mã Nhân Viên</option>
-                    <option value="Salary">Lương</option>
-                </Form.Select>
-                {Staffinfo}
-            </div>
+            <Container className='my-3'>
+                <Row className="justify-content-between align-items-center">
+                    <Col className='col-lg-10'>
+                        <Link to = '/'>Nhân viên</Link><span>/Lương</span>
+                    </Col>
+                    <Col className='col-lg-2'>
+                        <div className='row'>
+                            <Form.Select aria-label="Default select example"
+                            onChange={handleOnChange}>
+                                <option>Sắp xếp theo:</option>
+                                <option value="Mã Nhân Viên">Mã Nhân Viên</option>
+                                <option value="Salary">Lương</option>
+                            </Form.Select>
+                        </div>
+                    </Col>
+                </Row>
+                <Row className="justify-content-between align-items-center">
+                    {Staffinfo}
+                </Row>
+            </Container>
         </div>
     )
 }

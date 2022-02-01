@@ -3,6 +3,7 @@ import { Form,Container,Col,Row,FormControl,Button } from 'react-bootstrap';
 import { useState } from "react"
 import { Link } from 'react-router-dom';
 import logo from '../assets/images/alberto.png'
+import App from '../App'
 function Eelist(props){
 
 // ------hook use state---------------------------------------------------------------------------
@@ -113,7 +114,7 @@ function Eelist(props){
         <div className='container mt-5'>
             <div className='row'>
                 <Container>
-                    <Row className="justify-content-md-between">
+                    <Row className="justify-content-between align-items-center">
                         <Col xs lg="2">
                         <h3>Nhân Viên</h3>
                         </Col>
@@ -127,11 +128,11 @@ function Eelist(props){
                             </Form.Select>
                         </Col>
                         <Col xs lg='4'>
-                            <Form className="d-flex" onSubmit={handleSubmit}>
+                            <Form className="d-flex formheight" onSubmit={handleSubmit} >
                                         <FormControl
                                         type="search"
-                                        placeholder='Search'
-                                        className="me-2"
+                                        placeholder='Tìm kiếm'
+                                        className="me-1 h-100"
                                         aria-label="Search"
                                         value={searchEeName}
                                         onChange={(e) => setsearchEeName(e.target.value)}
@@ -139,7 +140,9 @@ function Eelist(props){
                                         <Button
                                         variant="outline-success"
                                         type='submit'
-                                        >Tìm Kiếm</Button>
+                                        size='sm'
+                                        className='buttonWidth'>
+                                        Tìm Kiếm</Button>
                             </Form>
                         </Col>
                     </Row>
