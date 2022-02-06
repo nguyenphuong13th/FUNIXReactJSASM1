@@ -140,6 +140,7 @@ function Eelist(props){
     //     }else if(isNaN(Number(salaryValue)) || Number(salaryValue) < 0){
     //         errorMessage.salary='* Trường này phải là số dương'
     //     }
+    this is a test
     //     setValidationMsg(errorMessage)
     //     if(Object.keys(errorMessage).length>0){
     //         return false
