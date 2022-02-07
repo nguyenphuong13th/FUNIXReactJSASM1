@@ -9,10 +9,6 @@ import Staffsalarycomponent from './components/Staffsalarycomponent';
 import Staffdetailcomponent from './components/Staffdetailcomponent';
 import {STAFFS} from './shared/staffs'
 import{DEPARTMENTS}from'./shared/staffs'
-
-
-
-
 function App() {
   const[AllStaffs,setAllStaffs]=useState(STAFFS)
   const handleAddStaff=(newStaff)=>{

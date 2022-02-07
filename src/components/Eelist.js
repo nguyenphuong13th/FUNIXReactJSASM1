@@ -1,4 +1,4 @@
-import { Card,CardImg,CardTitle,ModalHeader, ModalBody, Modal } from 'reactstrap'
+import { Card,CardImg,CardTitle,ModalHeader, ModalBody, Modal, Container } from 'reactstrap'
 import { useState } from "react"
 import { Link } from 'react-router-dom';
 import {Form,FormControl,Button,Row,Col} from 'react-bootstrap'
@@ -17,16 +17,17 @@ function Eelist(props){
     const OnSelectedEe = (staffs)=>{
         setSelectedEe(staffs);
     };
-    //form toogle
+//-----------------------form toogle------------------------------------------------------
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     function toggleModal(){
         setIsModalOpen(!isModalOpen);
     }
-    //@ Search component state
+//-----------------------@ Search component state------------------------------------------
     const [FilterdEeName,setFilterdEeName] =  useState([])
     const[searchEeName,setsearchEeName]= useState('')
     const[ButtonSearchclick,setButtonSearchclick]= useState(false)
+//-----------------------@ Search on change------------------------------------------
     //@ desciption : Search on change
     // const handleFilter = (e)=>{
     //     const searchEeName = e.target.value;
@@ -39,6 +40,7 @@ function Eelist(props){
     //         setFilterdEeName(newFilter);
     //     }
     // }
+//-----------------------@ Handle submit add new Employees-----------------------------------------------
     function handleSubmit(values){
             // Merger cai id vao value obiect
             const newValues = {
@@ -49,7 +51,7 @@ function Eelist(props){
             props.handleAddStaff(newValues)
             setIsModalOpen(!isModalOpen)
     }
-    // @ desciption : Search on click
+//----------------------- @ desciption :Handle Search on click-----------------------------------------------
     const handleSubmitSearch = (e)=>{
         e.preventDefault();
         const newFilter = props.staffs.filter((value)=>{
@@ -62,6 +64,7 @@ function Eelist(props){
         }
         setButtonSearchclick(true)
     }
+//---------------------------@Render items------------------------------------------------------------------
     const Liststaff = props.staffs.map((staffs)=>{
         return(
             <>
@@ -76,6 +79,7 @@ function Eelist(props){
             </>
         )
     })
+//---------------------------@Render items when search press-----------------------------------------------
         const SearchedEe =  FilterdEeName.map((staffs)=>{
             return(
                 <>
@@ -90,16 +94,42 @@ function Eelist(props){
                 </>
             )
         })
+//---------------------------@Render field---------------------------------------------------------------
     return (
         <div className='container mt-3'>
             <div className='row'>
-                <div className='d-flex justify-content-between'>
-                    <h3>Nhân Viên</h3>
+                <div >
+                    <Container>
+                        <Row className="justify-content-between align-items-center">
+                            <Col xs lg='3'className='mb-sm-3 mb-md-0 mb-l-0 customViewport'>
+                                <div className='d-flex justify-content-between align-items-center'>
+                                    <h3>Nhân Viên</h3>
+                                    <Button variant="primary" onClick={toggleModal}>
+                                            <FontAwesomeIcon icon={faPlus}/>
+                                    </Button>
+                                </div>
+                            </Col>
+                            <Col md='auto'>
+                                {/* Search Bar */}
+                                <Form className="d-flex" onSubmit={handleSubmitSearch}>
+                                    <FormControl
+                                    type="search"
+                                    placeholder='Search'
+                                    className="me-2"
+                                    aria-label="Search"
+                                    value={searchEeName}
+                                    onChange={(e) => setsearchEeName(e.target.value)}
+                                    />
+                                    <Button
+                                    variant="outline-success"
+                                    type='submit'
+                                    >Search</Button>
+                                </Form>
+                            </Col>
+                        </Row>
+                    </Container>
                     {/*Form add Employee-------------------------------------------------------*/}
                     <div>
-                        <Button variant="primary" onClick={toggleModal}>
-                            <FontAwesomeIcon icon={faPlus}/>
-                        </Button>
                         <Modal isOpen={isModalOpen} toggle={toggleModal}>
                             <ModalHeader toggle={toggleModal}>
                                 <h1>Thêm Nhân Viên</h1>
@@ -143,7 +173,7 @@ function Eelist(props){
                                         </Form.Label>
                                         <Col sm="9">
                                             <Control.text
-                                            placeholder="Tên Nhân Viên"
+                                            placeholder="Hệ số Lương"
                                             model='.salaryScale'
                                             id='salaryScale'
                                             name='salaryScale'
@@ -328,27 +358,12 @@ function Eelist(props){
                                     variant="primary"
                                     type="submit"
                                     >
-                                    Add
+                                    Thêm
                                     </Button>
                                 </LocalForm>
                             </ModalBody>
                          </Modal>
-                    </div>
-                    {/* Search Bar */}
-                    <Form className="d-flex" onSubmit={handleSubmitSearch}>
-                        <FormControl
-                        type="search"
-                        placeholder='Search'
-                        className="me-2"
-                        aria-label="Search"
-                        value={searchEeName}
-                        onChange={(e) => setsearchEeName(e.target.value)}
-                        />
-                        <Button
-                        variant="outline-success"
-                        type='submit'
-                        >Search</Button>
-                    </Form>
+                        </div>
                 </div>
                 {ButtonSearchclick ? SearchedEe:Liststaff}
             </div>
