@@ -1,6 +1,6 @@
 import { Card,CardText,CardTitle } from 'reactstrap'
 function Departmentcomponent(props){
-    const Staffdepartment = props.department.map((department)=>{
+    const Staffdepartment = props.departments.map((department)=>{
         return(
             <div key={department.id} className="col-sm-12 col-md-6 col-lg-4 mt-1">
                 <Card>

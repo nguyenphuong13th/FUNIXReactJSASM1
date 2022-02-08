@@ -5,14 +5,13 @@ import dateFormat, { masks } from "dateformat";
 import logo from '../assets/images/alberto1.png';
 function Staffdetailcomponent(props){
     const {id}=useParams() //use hook to get data each ee from Eelist component onclick
-    console.log(props.staffs)
         const ClickedStaffdetail = props.staffs.filter((ClickedStaffdetail)=>{
             return(
                 ClickedStaffdetail.id === Number(id)) }).map((ClickedStaffdetail,index)=>{ //compare data id with id which got from hook if true then render element
-                    console.log('ClickedStaffdetail.name:'+ClickedStaffdetail.name);
                     return(
                     <div key={index}>
                         <Link to = '/'>Nhân viên</Link><span>/{ClickedStaffdetail.name}</span>
+                        {/* Link dùng để thực hiện SPA thay cho thẻ a */}
                         <Card>
                         <div className="d-flex">
                             <div className="col-lg-3 col-md-4 col-sm-12">

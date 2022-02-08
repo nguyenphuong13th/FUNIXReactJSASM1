@@ -2,8 +2,6 @@ import { Card,CardImg,CardTitle } from 'reactstrap'
 import { Form,Container,Col,Row,FormControl,Button } from 'react-bootstrap';
 import { useState } from "react"
 import { Link } from 'react-router-dom';
-import logo from '../assets/images/alberto.png'
-import App from '../App'
 function Eelist(props){
 
 // ------hook use state---------------------------------------------------------------------------
@@ -87,7 +85,7 @@ function Eelist(props){
                 {/* config route when selected invidual selected */}
                 <Link className='text-decoration-none text-dark' to={`/${staffs.id}`}>
                     <Card body className="text-center">
-                        <CardImg  width='100%' src={logo} alt={staffs.name}/>
+                        <CardImg  width='100%' src={staffs.image} alt={staffs.name}/>
                         <CardTitle >{staffs.name}</CardTitle>
                     </Card>
                 </Link>
@@ -101,7 +99,7 @@ function Eelist(props){
                 <div key={staffs.id} className='col-sm-12 col-md-6 col-lg-3 mt-5'>
                     <Link className='text-decoration-none text-dark' to={`/${staffs.id}`}>
                         <Card body className="text-center">
-                            <CardImg  width='100%' src={logo} alt={staffs.name}/>
+                            <CardImg  width='100%' src={staffs.image} alt={staffs.name}/>
                             <CardTitle >{staffs.name}</CardTitle>
                         </Card>
                     </Link>

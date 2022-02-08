@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Card,CardText,CardTitle } from 'reactstrap'
 import { Form,Container,Col,Row } from 'react-bootstrap';
 function Staffsalarycomponent(props){
+    console.log(props.staffs)
     const[sortedEeList,setsortedEeList]=useState(props.staffs);
     const basicSalary= 3000000
     const overTimeSalary = 200000
@@ -10,7 +11,7 @@ function Staffsalarycomponent(props){
         targetArray.sort(function(a,b){
             a=(a.salaryScale*basicSalary)+(a.overTime*overTimeSalary)
             b=(b.salaryScale*basicSalary)+(b.overTime*overTimeSalary)
-            return b - a;
+            return a - b;
         })
     }
     const sortedIdFunction = (targetArray)=>{
