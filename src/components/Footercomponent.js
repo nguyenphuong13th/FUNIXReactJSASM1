@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBlenderPhone, faCircle, faCopyright, faEnvelope, faIdCard,faMoneyBill,faPhone,faUsers } from '@fortawesome/free-solid-svg-icons'
-import { faFacebook, faGoogle, faGooglePlusSquare, faLinkedin, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons'
+import { faBlenderPhone, faCopyright, faEnvelope,faPhone} from '@fortawesome/free-solid-svg-icons'
+import { faFacebook, faGooglePlusSquare, faLinkedin, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons'
 function Footercomponent(){
     return(
         <footer className='bg-dark container mt-5'>

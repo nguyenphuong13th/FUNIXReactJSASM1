@@ -1,20 +1,51 @@
 {
   "name": "asm4",
-  "version": "1.0.0",
-  "description": "ASM project",
-  "main": "index.js",
-  "devDependencies": {},
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.36",
+    "@fortawesome/free-brands-svg-icons": "^5.15.4",
+    "@fortawesome/free-regular-svg-icons": "^5.15.4",
+    "@fortawesome/free-solid-svg-icons": "^5.15.4",
+    "@fortawesome/react-fontawesome": "^0.1.16",
+    "@testing-library/jest-dom": "^5.16.1",
+    "@testing-library/react": "^12.1.2",
+    "@testing-library/user-event": "^13.5.0",
+    "bootstrap": "^5.1.3",
+    "dateformat": "^5.0.2",
+    "react": "^17.0.2",
+    "react-bootstrap": "^2.0.4",
+    "react-dom": "^17.0.2",
+    "react-router-dom": "^6.2.1",
+    "react-scripts": "5.0.0",
+    "reactstrap": "^9.0.1",
+    "web-vitals": "^2.1.2"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "cross-env BROWSER=chrome react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/nguyenphuong13th/FUNIXReactJSASM_X.git"
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
   },
-  "author": "H.Phuong",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/nguyenphuong13th/FUNIXReactJSASM_X/issues"
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   },
-  "homepage": "https://github.com/nguyenphuong13th/FUNIXReactJSASM_X#readme"
+  "devDependencies": {
+    "cross-env": "^7.0.3"
+  }
 }

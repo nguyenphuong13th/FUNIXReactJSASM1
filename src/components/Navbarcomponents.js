@@ -1,14 +1,14 @@
-import { Routes,Route,Link,NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faIdCard,faMoneyBill,faUsers } from '@fortawesome/free-solid-svg-icons'
 import brand from '../assets/images/brand.jpg'
-import {Navbar,NavDropdown,NavItem,Container,Nav,Form,FormControl,Button} from 'react-bootstrap'
+import {Navbar,Container,Nav} from 'react-bootstrap'
 function Navbarcomponent(){
     return(
         <div>
             <Navbar bg="primary" expand="lg">
                 <Container>
-                    <Navbar.Brand><NavLink  to ='/'><img src={brand} className='rounded-circle' width={50} height={50}/></NavLink></Navbar.Brand>
+                    <Navbar.Brand><NavLink  to ='/'><img src={brand} className='rounded-circle' width={50} height={50} alt={'Logo Brand'}/></NavLink></Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
