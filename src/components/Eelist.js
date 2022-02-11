@@ -48,7 +48,7 @@ function Eelist(props){
                 id:props.staffs.length + 1,
                 department:{name:values.department}// change department to a nested object with key name
             }
-            props.handleAddStaff(newValues)
+            props.AddStaff(newValues.id,newValues.name,newValues.doB,newValues.salaryScale,newValues.startDate,newValues.department.name,newValues.annualLeave,newValues.overTime,newValues.salary,newValues.image);
             setIsModalOpen(!isModalOpen)
     }
 //----------------------- @ desciption :Handle Search on click-----------------------------------------------

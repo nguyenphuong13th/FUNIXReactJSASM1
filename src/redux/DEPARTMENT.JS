@@ -1,5 +1,5 @@
 import { DEPARTMENTS } from "../shared/staffs";
-export const staffs = (state = DEPARTMENTS, action) => {
+export const departments = (state = DEPARTMENTS, action) => {
     switch (action.type) {
         default:
           return state;
