@@ -1,6 +1,6 @@
-import { STAFFS } from "../shared/staffs";
+// import { STAFFS } from "../shared/staffs";
 import * as ActionTypes from "./ActionTypes";
-export const staffs = (state = STAFFS, action) => {
+export const staffs = (state = [], action) => {
     switch (action.type) {
         case ActionTypes.ADD_STAFFS:
             var staff = action.payload;
@@ -20,19 +20,39 @@ export const staffs = (state = STAFFS, action) => {
           return state;
       }
 };
-export const Staffs = (state = { isLoading: true,
+// export const Staffs =
+// (state = {
+//     isLoading: true,
+//     errMess: null,
+//     Staffs:[]}, action) => {
+//     switch (action.type) {
+//         case ActionTypes.ADD_STAFFS:
+//             return {...state, isLoading: false, errMess: null, staffs: action.payload};
+
+//         case ActionTypes.STAFFS_LOADING:
+//             return {...state, isLoading: true, errMess: null, staffs: []}
+
+//         case ActionTypes.STAFFS_FAILED:
+//             return {...state, isLoading: false, errMess: action.payload};
+
+//         default:
+//             return state;
+//     }
+// };
+export const Staffs =
+(state = {
+    isLoading: true,
     errMess: null,
     Staffs:[]}, action) => {
     switch (action.type) {
-        case ActionTypes.ADD_STAFFS:
+        case ActionTypes.STAFFS_SUCCESS:
             return {...state, isLoading: false, errMess: null, staffs: action.payload};
 
         case ActionTypes.STAFFS_LOADING:
             return {...state, isLoading: true, errMess: null, staffs: []}
 
         case ActionTypes.STAFFS_FAILED:
-            return {...state, isLoading: false, errMess: action.payload};
-
+            return {...state, isLoading: false, errMess: action.payload,staffs:[]};
         default:
             return state;
     }
