@@ -7,28 +7,22 @@ import Footercomponent from './Footercomponent';
 import Navbarcomponent from './Navbarcomponents';
 import Staffsalarycomponent from './Staffsalarycomponent';
 import Staffdetailcomponent from './Staffdetailcomponent';
-import {connect, useSelector} from 'react-redux'
+import {useSelector,useDispatch} from 'react-redux'
 import{fetchDepartments,fetchStaffs} from '../redux/ActionCreator';
-const mapDispatchToProps = dispatch => {
-  return{
-
-    fetchStaffs: () => { dispatch(fetchStaffs())},
-    fetchDeparements: () => { dispatch(fetchDepartments())}
-  }
-};
 function Main() {
     const staffs = useSelector(state => state.staffs.Staffs);//useSelector lấy dữ liệu từ store
     const departments = useSelector(state => state.departments.Departments);
+    const dispatch = useDispatch();
     useEffect(() => {
-        fetchStaffs();
+        dispatch(fetchStaffs())
     },[]);
     useEffect(() => {
-      fetchDepartments();
-    },[])
+      dispatch(fetchDepartments())
+    },[]);
     console.log('staffs: ',staffs);// đoạn này mình ko lấy data call API update len store dc nen nó ko có dữ liệu
     console.log('departments: ',departments);
   return (
-    staffs.isLoading?(<h2>Loading</h2>):staffs.errmess?(<h2>{staffs.errmess}</h2>):(
+    staffs.isLoading?(<h2>Loading</h2>):staffs.errmess?(<div><h2>{staffs.errmess}</h2></div>):(
       <div>
         <div className='container'>
             <Navbarcomponent/>
@@ -43,17 +37,6 @@ function Main() {
         </div>
       </div>
     )
-    // <div className='container'>
-    //   <Navbarcomponent/>
-    //   {/* usign react router V6 to navigate to another page */}
-    //   <Routes>
-    //     <Route path="/" element={<Eelist staffs={staffs} AddStaff={AddStaff}/>}/>
-    //     <Route path="/department" element={<Departmentcomponent departments={departments}/>}/>
-    //     <Route path="/salary" element={<Staffsalarycomponent staffs={staffs}/>}/>
-    //     <Route path="/:id" element={<Staffdetailcomponent staffs={staffs}/>}/>
-    //   </Routes>
-    //   <Footercomponent/>
-    // </div>
   )
 }
-export default connect(mapDispatchToProps) (Main);
+export default Main;
