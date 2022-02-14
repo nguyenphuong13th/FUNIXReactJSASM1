@@ -1,16 +1,18 @@
 import * as ActionTypes from './ActionTypes';
 import axios from 'axios';
-export const fetchStaffs = () => (dispatch) => {
-    axios.get('https://rjs101xbackend.herokuapp.com/staffs')
-    .then(response => {
-        const staffList = response.data;
-        console.log('staffList',staffList);
-        dispatch(StaffsSuccess(staffList));
-    })
-    .catch(error => {
-        const errmess = error.message;
-        dispatch(StaffsFailed(errmess));
-    });
+export const fetchStaffs = ()  => {
+    return dispatch => {
+        axios.get('https://rjs101xbackend.herokuapp.com/staffs')
+        .then(response => {
+            const staffList = response.data;
+            console.log('staffList',staffList);
+            dispatch(StaffsSuccess(staffList));
+        })
+        .catch(error => {
+            const errmess = error.message;
+            dispatch(StaffsFailed(errmess));
+        });
+    };
 }
 export const StaffsLoading = () => ({
     type: ActionTypes.STAFFS_LOADING

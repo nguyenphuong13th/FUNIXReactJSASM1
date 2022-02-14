@@ -20,7 +20,7 @@ function Staffdetailcomponent(props){
                                 <CardTitle className="fs-3">Họ và Tên: {ClickedStaffdetail.name}</CardTitle>
                                 <CardText>Ngày sinh: {dateFormat((ClickedStaffdetail.doB),'dd/mm/yyyy')}</CardText>
                                 <CardText>Ngày vào công ty: {dateFormat((ClickedStaffdetail.startedDate),'dd/mm/yyyy')}</CardText>
-                                <CardText>Phòng Ban: {ClickedStaffdetail.department.name}</CardText>
+                                <CardText>Phòng Ban: {ClickedStaffdetail.departmentId}</CardText>
                                 <CardText>Số ngày nghỉ còn lại: {ClickedStaffdetail.annualLeave}</CardText>
                                 <CardText>Số ngày đã làm thêm: {ClickedStaffdetail.overTime}</CardText>
                             </div>
