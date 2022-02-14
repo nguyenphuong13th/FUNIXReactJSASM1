@@ -7,9 +7,8 @@ import Footercomponent from './Footercomponent';
 import Navbarcomponent from './Navbarcomponents';
 import Staffsalarycomponent from './Staffsalarycomponent';
 import Staffdetailcomponent from './Staffdetailcomponent';
-import {useSelector,connect} from 'react-redux'
+import {connect, useSelector} from 'react-redux'
 import{fetchDepartments,fetchStaffs} from '../redux/ActionCreator';
-import { departments } from '../redux/DEPARTMENT';
 const mapDispatchToProps = dispatch => {
   return{
 
@@ -17,40 +16,33 @@ const mapDispatchToProps = dispatch => {
     fetchDeparements: () => { dispatch(fetchDepartments())}
   }
 };
-const mapStateToProps = state => {
-  return {
-    staffs: state.staffs,
-    departments: state.departments
-  };
-}
-function Main({staffs,fetchStaffs,departments,fetchDeparements}) {
-
-    // const staffs = useSelector(state => state.staffs);//useSelector lấy dữ liệu từ store
-    // const departments = useSelector(state => state.departments);
-
+function Main() {
+    const staffs = useSelector(state => state.staffs.Staffs);//useSelector lấy dữ liệu từ store
+    const departments = useSelector(state => state.departments.Departments);
     useEffect(() => {
         fetchStaffs();
-        fetchDeparements();
-    }, []);
-
+    },[]);
+    useEffect(() => {
+      fetchDepartments();
+    },[])
+    console.log('staffs: ',staffs);// đoạn này mình ko lấy data call API update len store dc nen nó ko có dữ liệu
+    console.log('departments: ',departments);
   return (
+    staffs.isLoading?(<h2>Loading</h2>):staffs.errmess?(<h2>{staffs.errmess}</h2>):(
       <div>
-        <h2>StaffsList</h2>
         <div className='container'>
             <Navbarcomponent/>
             {/* usign react router V6 to navigate to another page */}
             <Routes>
-              staffs.loading?(<h2>Loading</h2>):staffs.errmess?(<h2>{staffs.errmess}</h2>):(
               <Route path="/" element={<Eelist staffs={staffs}/>}/>)
-              departments.loading?(<h2>Loading</h2>):departments.errmess?(<h2>{departments.errmess}</h2>):(
-              <Route path="/department" element={<Departmentcomponent departments={departments}/>}/>)
+              <Route path="/department" element={<Departmentcomponent departments={departments}/>}/>
               <Route path="/salary" element={<Staffsalarycomponent staffs={staffs}/>}/>
               <Route path="/:id" element={<Staffdetailcomponent staffs={staffs}/>}/>
             </Routes>
             <Footercomponent/>
         </div>
       </div>
-
+    )
     // <div className='container'>
     //   <Navbarcomponent/>
     //   {/* usign react router V6 to navigate to another page */}
@@ -64,4 +56,4 @@ function Main({staffs,fetchStaffs,departments,fetchDeparements}) {
     // </div>
   )
 }
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default connect(mapDispatchToProps) (Main);

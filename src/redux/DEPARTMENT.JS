@@ -1,25 +1,25 @@
-// import { DEPARTMENTS } from "../shared/staffs";
+import { DEPARTMENTS } from "../shared/staffs";
 import * as ActionTypes from "./ActionTypes";
-export const departments = (state = [], action) => {
-    switch (action.type) {
-        default:
-          return state;
-      }
-};
-export const Departments =
+// export const departments = (state = DEPARTMENTS, action) => {
+//     switch (action.type) {
+//         default:
+//           return state;
+//       }
+// };
+export const DepartmentsReducer =
 (state = {
     isLoading: true,
     errMess: null,
     Departments:[]}, action) => {
     switch (action.type) {
         case ActionTypes.DEPARTMENTS_SUCCESS:
-            return {...state, isLoading: false, errMess: null, departments: action.payload};
+            return {...state, isLoading: false, errMess: null, Departments: action.payload};
 
         case ActionTypes.DEPARTMENTS_LOADING:
-            return {...state, isLoading: true, errMess: null, departments: []}
+            return {...state, isLoading: true, errMess: null, Departments: []}
 
         case ActionTypes.DEPARTMENTS_FAILED:
-            return {...state, isLoading: false, errMess: action.payload,departments:[]};
+            return {...state, isLoading: false, errMess: action.payload,Departments:[]};
         default:
             return state;
     }

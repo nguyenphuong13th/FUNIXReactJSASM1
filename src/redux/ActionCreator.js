@@ -1,44 +1,10 @@
 import * as ActionTypes from './ActionTypes';
 import axios from 'axios';
-export const AddStaff = (id,name,doB,salaryScale,startDate,department,annualLeave,overTime,salary) => ({
-    type : ActionTypes.ADD_STAFFS,
-    payload: {
-        id: id,
-        name: name,
-        doB: doB,
-        salaryScale: salaryScale,
-        startDate: startDate,
-        department: department,
-        annualLeave: annualLeave,
-        overTime: overTime,
-        salary: salary,
-        image: '/assets/images/alberto.png',
-    }
-});
-// export const fetchStaffs = () => (dispatch) => {
-
-//     dispatch(StaffsLoading(true));
-
-//     setTimeout(() => {
-//         dispatch(AddStaff(STAFFS));
-//     }, 2000);
-// }
-// export const StaffsLoading = () => ({
-//     type: ActionTypes.STAFFS_LOADING
-// });
-// export const StaffsFailed = (errmess) => ({
-//     type: ActionTypes.STAFFS_FAILED,
-//     payload: errmess
-// });
-// export const AddStaffs = (staffs) => ({
-//     type: ActionTypes.ADD_STAFFS,
-//     payload: staffs
-// });
 export const fetchStaffs = () => (dispatch) => {
-    dispatch(StaffsLoading);
     axios.get('https://rjs101xbackend.herokuapp.com/staffs')
     .then(response => {
         const staffList = response.data;
+        console.log('staffList',staffList);
         dispatch(StaffsSuccess(staffList));
     })
     .catch(error => {
@@ -53,16 +19,16 @@ export const StaffsFailed = (errmess) => ({
     type: ActionTypes.STAFFS_FAILED,
     payload: errmess
 });
-export const StaffsSuccess = (staffs) => ({
+export const StaffsSuccess = (staffList) => ({
     type: ActionTypes.STAFFS_SUCCESS,
-    payload: staffs
+    payload: staffList
 });
 // Department Action
 export const fetchDepartments = () => (dispatch) => {
-    dispatch(DepartmentsLoading);
     axios.get('https://rjs101xbackend.herokuapp.com/departments')
     .then(response => {
         const departmentList = response.data;
+        console.log('departmentList',departmentList);
         dispatch(DepartmentsSuccess(departmentList));
     })
     .catch(error => {
@@ -77,8 +43,8 @@ export const DepartmentsFailed = (errmess) => ({
     type: ActionTypes.DEPARTMENTS_FAILED,
     payload: errmess
 });
-export const DepartmentsSuccess = (departments) => ({
+export const DepartmentsSuccess = (departmentList) => ({
     type: ActionTypes.DEPARTMENTS_SUCCESS,
-    payload: departments
+    payload: departmentList
 });
 
