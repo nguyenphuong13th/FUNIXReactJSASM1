@@ -1,11 +1,11 @@
 import * as ActionTypes from './ActionTypes';
 import axios from 'axios';
+// getting the staffs data from the server
 export const fetchStaffs = ()  => {
     return dispatch => {
         axios.get('https://rjs101xbackend.herokuapp.com/staffs')
         .then(response => {
             const staffList = response.data;
-            console.log('staffList',staffList);
             dispatch(StaffsSuccess(staffList));
         })
         .catch(error => {
@@ -14,6 +14,7 @@ export const fetchStaffs = ()  => {
         });
     };
 }
+// Action for StaffsLoading
 export const StaffsLoading = () => ({
     type: ActionTypes.STAFFS_LOADING
 });
@@ -26,11 +27,11 @@ export const StaffsSuccess = (staffList) => ({
     payload: staffList
 });
 // Department Action
+//getting the departments data from the server
 export const fetchDepartments = () => (dispatch) => {
     axios.get('https://rjs101xbackend.herokuapp.com/departments')
     .then(response => {
         const departmentList = response.data;
-        console.log('departmentList',departmentList);
         dispatch(DepartmentsSuccess(departmentList));
     })
     .catch(error => {
@@ -38,6 +39,7 @@ export const fetchDepartments = () => (dispatch) => {
         dispatch(DepartmentsFailed(errmess));
     });
 }
+// Action for Departments
 export const DepartmentsLoading = () => ({
     type: ActionTypes.DEPARTMENTS_LOADING
 });

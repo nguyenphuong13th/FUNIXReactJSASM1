@@ -1,6 +1,4 @@
-import { STAFFS } from "../shared/staffs";
 import * as ActionTypes from "./ActionTypes";
-
 export const StaffsReducer =
 (state = {
     isLoading: true,

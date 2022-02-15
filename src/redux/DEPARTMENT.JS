@@ -1,11 +1,4 @@
-import { DEPARTMENTS } from "../shared/staffs";
 import * as ActionTypes from "./ActionTypes";
-// export const departments = (state = DEPARTMENTS, action) => {
-//     switch (action.type) {
-//         default:
-//           return state;
-//       }
-// };
 export const DepartmentsReducer =
 (state = {
     isLoading: true,
