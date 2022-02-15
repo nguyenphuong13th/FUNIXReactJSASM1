@@ -9,10 +9,11 @@ import Navbarcomponent from './Navbarcomponents';
 import Staffsalarycomponent from './Staffsalarycomponent';
 import Staffdetailcomponent from './Staffdetailcomponent';
 import {useSelector,useDispatch} from 'react-redux'
-import{fetchDepartments,fetchStaffs} from '../redux/ActionCreator';
+import{fetchDepartments,fetchStaffs,fetchSalary} from '../redux/ActionCreator';
 function Main() {
     const staffs = useSelector(state => state.staffs.Staffs);//useSelector lấy dữ liệu từ store
     const departments = useSelector(state => state.departments.Departments);
+    const salary = useSelector(state => state.salary.Salary);
     // useEffect,useDispatch calling API
     const dispatch = useDispatch();
     useEffect(() => {
@@ -20,6 +21,9 @@ function Main() {
     },[]);
     useEffect(() => {
       dispatch(fetchDepartments())
+    },[]);
+    useEffect(() => {
+      dispatch(fetchSalary())
     },[]);
   return (
     staffs.isLoading?(<h2>Loading</h2>):staffs.errmess?(<div><h2>{staffs.errmess}</h2></div>):(
@@ -31,7 +35,7 @@ function Main() {
               <Route path="/" element={<Eelist staffs={staffs}/>}/>)
               <Route path="/department" element={<Departmentcomponent departments={departments}/>}/>
               <Route path="/:idDept" element={<Departmentdetailcomponent departments={departments} staffs={staffs}/>}/>
-              <Route path="/salary" element={<Staffsalarycomponent staffs={staffs}/>}/>
+              <Route path="/salary" element={<Staffsalarycomponent salary={salary}/>}/>
               <Route path="/:id" element={<Staffdetailcomponent staffs={staffs}/>}/>
             </Routes>
             <Footercomponent/>

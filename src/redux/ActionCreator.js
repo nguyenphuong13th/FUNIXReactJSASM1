@@ -51,4 +51,28 @@ export const DepartmentsSuccess = (departmentList) => ({
     type: ActionTypes.DEPARTMENTS_SUCCESS,
     payload: departmentList
 });
-
+// Salary Action
+//getting the salary data from the server
+export const fetchSalary = () => (dispatch) => {
+    axios.get('https://rjs101xbackend.herokuapp.com/staffsSalary')
+    .then(response => {
+        const salaryList = response.data;
+        dispatch(SalarySuccess(salaryList));
+    })
+    .catch(error => {
+        const errmess = error.message;
+        dispatch(SalaryFailed(errmess));
+    });
+}
+// Action for Salary
+export const SalaryLoading = () => ({
+    type: ActionTypes.SALARY_LOADING
+});
+export const SalaryFailed = (errmess) => ({
+    type: ActionTypes.SALARY_FAILED,
+    payload: errmess
+});
+export const SalarySuccess = (salaryList) => ({
+    type: ActionTypes.SALARY_SUCCESS,
+    payload: salaryList
+});
