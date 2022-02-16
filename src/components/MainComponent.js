@@ -14,6 +14,12 @@ function Main() {
     const staffs = useSelector(state => state.staffs.Staffs);//useSelector lấy dữ liệu từ store
     const departments = useSelector(state => state.departments.Departments);
     const salary = useSelector(state => state.salary.Salary);
+    const isLoadingStaffs = useSelector(state => state.staffs.isLoading);
+    const errMessStaffs = useSelector(state => state.staffs.errMess);
+    const isLoadingDepartments = useSelector(state => state.departments.isLoading);
+    const errMessDepartments = useSelector(state => state.departments.errMess);
+    const isLoadingSalary = useSelector(state => state.salary.isLoading);
+    const errMessSalary = useSelector(state => state.salary.errMess);
     // useEffect,useDispatch calling API
     const dispatch = useDispatch();
     useEffect(() => {
@@ -26,22 +32,20 @@ function Main() {
       dispatch(fetchSalary())
     },[]);
   return (
-    staffs.isLoading?(<h2>Loading</h2>):staffs.errmess?(<div><h2>{staffs.errmess}</h2></div>):(
       <div>
         <div className='container'>
             <Navbarcomponent/>
             {/* usign react router V6 to navigate to another page */}
             <Routes>
-              <Route path="/" element={<Eelist staffs={staffs}/>}/>)
-              <Route path="/department" element={<Departmentcomponent departments={departments}/>}/>
-              <Route path="/:idDept" element={<Departmentdetailcomponent departments={departments} staffs={staffs}/>}/>
-              <Route path="/salary" element={<Staffsalarycomponent salary={salary}/>}/>
-              <Route path="/:id" element={<Staffdetailcomponent staffs={staffs}/>}/>
+              <Route path="/" element={<Eelist staffs={staffs} isLoadingStaffs={isLoadingStaffs} errMessStaffs={errMessStaffs}/>}/>)
+              <Route path="/department" element={<Departmentcomponent departments={departments} isLoadingDepartments={isLoadingDepartments} errMessDepartments={errMessDepartments}/>}/>
+              <Route path="/department/:idDept" element={<Departmentdetailcomponent departments={departments} staffs={staffs}/>}/>
+              <Route path="/salary" element={<Staffsalarycomponent salary={salary} isLoadingSalary={isLoadingSalary} errMessSalary={errMessSalary}/>}/>
+              <Route path="/staffs/:id" element={<Staffdetailcomponent staffs={staffs} departments={departments}/>}/>
             </Routes>
             <Footercomponent/>
         </div>
       </div>
     )
-  )
 }
 export default Main;

@@ -7,7 +7,10 @@ function Staffdetailcomponent(props){
     const {id}=useParams() //use hook to get data each ee from Eelist component onclick
         const ClickedStaffdetail = props.staffs.filter((ClickedStaffdetail)=>{
             return(
-                ClickedStaffdetail.id === Number(id)) }).map((ClickedStaffdetail,index)=>{ //compare data id with id which got from hook if true then render element
+                //compare data id with id which got from hook if true then render element
+                ClickedStaffdetail.id === Number(id)) }).map((ClickedStaffdetail,index)=>{
+                    const dept = props.departments.find((dept)=> dept.id === ClickedStaffdetail.departmentId)
+                    console.log('dept',dept)
                     return(
                     <div key={index}>
                         <Link to = '/'>Nhân viên</Link><span>/{ClickedStaffdetail.name}</span>
@@ -20,7 +23,7 @@ function Staffdetailcomponent(props){
                                 <CardTitle className="fs-3">Họ và Tên: {ClickedStaffdetail.name}</CardTitle>
                                 <CardText>Ngày sinh: {dateFormat((ClickedStaffdetail.doB),'dd/mm/yyyy')}</CardText>
                                 <CardText>Ngày vào công ty: {dateFormat((ClickedStaffdetail.startedDate),'dd/mm/yyyy')}</CardText>
-                                <CardText>Phòng Ban: {ClickedStaffdetail.departmentId}</CardText>
+                                <CardText>Phòng Ban: {dept.name}</CardText>
                                 <CardText>Số ngày nghỉ còn lại: {ClickedStaffdetail.annualLeave}</CardText>
                                 <CardText>Số ngày đã làm thêm: {ClickedStaffdetail.overTime}</CardText>
                             </div>

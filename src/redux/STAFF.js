@@ -13,6 +13,8 @@ export const StaffsReducer =
 
         case ActionTypes.STAFFS_FAILED:
             return {...state, isLoading: false, errMess: action.payload,Staffs:[]};
+        case ActionTypes.ADD_STAFFS:
+            return {...state, Staffs: state.Staffs.concat(action.payload)};
         default:
             return state;
     }
