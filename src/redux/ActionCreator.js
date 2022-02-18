@@ -17,30 +17,7 @@ export const fetchStaffs = ()  => {
         });
     };
 }
-// export const postStaff=(staff)=>(dispatch)=>{
-//     // const newStaff={
-//     //     id: id,
-//     //     name: Name,
-//     //     doB: doB,
-//     //     salaryScale: salaryScale,
-//     //     startDate: startDate,
-//     //     department: department,
-//     //     annualLeave: annualLeave,
-//     //     overTime: overTime,
-//     //     salary: salary,
-//     //     image: image
-//     // };
-//     console.log("staff---",staff); //khoong cos value truyen sang
-
-//     axios({
-//         method: 'post',
-//         url: baseUrl+'staffs',
-//         data: JSON.stringify(staff),
-//       }).then(response =>
-//         {const newStaff = response.data;
-//         dispatch(AddStaff(staff))})
-//       .catch(error =>  { console.log('post staffs', error.message); alert('staffs could not be posted\nError: '+error.message); });
-// }
+// adding the staffs data to the server using POST method
 export const postStaff = (dispatch, newStaff) => {
     fetch(baseUrl + "staffs", {
       method: "POST",
@@ -70,6 +47,68 @@ export const postStaff = (dispatch, newStaff) => {
         dispatch(AddStaff(list));
       });
   };
+// deleting the staffs data from the server using DELETE method
+export const deleteStaff = (dispatch, id) => {
+    fetch(baseUrl + "staffs/" + id, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+    })
+      .then(
+        (res) => {
+          if (res.ok) {
+            return res;
+          }
+
+          if (!res.ok) {
+            let err = new Error("Error " + res.status + ": " + res.statusText);
+            throw err;
+          }
+        },
+        (err) => {
+          let errmess = new Error(err.message);
+          throw errmess;
+        }
+      )
+      .then((res) => res.json())
+
+      // Hanlde when get response successful
+      .then((list) => {
+        dispatch(DeleteStaff(id));
+      });
+  }
+// updating the staffs data from the server using PATCH method
+export const updateStaff = (dispatch, updatedStaff) => {
+    fetch(baseUrl + "staffs", {
+      method: "PATCH",
+      body: JSON.stringify(updatedStaff),
+      headers: { "Content-Type": "application/json" },
+    })
+      .then(
+        (res) => {
+          if (res.ok) {
+            return res;
+          }
+
+          if (!res.ok) {
+            let err = new Error("Error " + res.status + ": " + res.statusText);
+            throw err;
+          }
+        },
+        (err) => {
+          let errmess = new Error(err.message);
+          throw errmess;
+        }
+      )
+      .then((res) => res.json())
+
+      // Hanlde when get response successful
+      .then((list) => {
+        console.log('list', list);
+        dispatch(UpdateStaff(list));
+      });
+  }
+
+
 // Action for StaffsLoading
 export const StaffsLoading = () => ({
     type: ActionTypes.STAFFS_LOADING
@@ -142,4 +181,14 @@ export const SalarySuccess = (salaryList) => ({
 export const AddStaff = (newStaff) => ({
     type: ActionTypes.ADD_STAFFS,
     payload: newStaff
+});
+// Action for DeleteStaff
+export const DeleteStaff = (id) => ({
+    type: ActionTypes.DELETE_STAFFS,
+    payload: id
+});
+// Action for UpdateStaff
+export const UpdateStaff = (updatedStaff) => ({
+    type: ActionTypes.UPDATE_STAFFS,
+    payload: updatedStaff
 });
