@@ -113,10 +113,12 @@ export const updateStaff = (dispatch, updatedStaff) => {
 export const StaffsLoading = () => ({
     type: ActionTypes.STAFFS_LOADING
 });
+// Action for call API StaffsFailed
 export const StaffsFailed = (errmess) => ({
     type: ActionTypes.STAFFS_FAILED,
     payload: errmess
 });
+// Action for call API StaffsSuccess
 export const StaffsSuccess = (staffList) => ({
     type: ActionTypes.STAFFS_SUCCESS,
     payload: staffList
