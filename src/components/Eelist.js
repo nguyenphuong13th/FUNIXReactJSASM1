@@ -1,16 +1,17 @@
-import { Card,CardImg,CardTitle,ModalHeader, ModalBody } from 'reactstrap'
+import { Card,CardImg,CardTitle } from 'reactstrap'
 import { useState } from "react"
 import { Link } from 'react-router-dom';
 import {Form,FormControl,Button,Row,Col,Modal,Container} from 'react-bootstrap'
+import { FadeTransform } from 'react-animation-components';
 import { Loading } from '../redux/LoadingCopmponent';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faPlus,faMinus} from '@fortawesome/free-solid-svg-icons'
 import {Control,LocalForm,Errors} from 'react-redux-form'
 import { useDispatch } from 'react-redux';
-import { Transition, animated,config } from 'react-spring'
 import logo from '../assets/images/alberto.png'
 import ErrMessageComponent from './ErrMessageComponent';
 import { postStaff,deleteStaff } from '../redux/ActionCreator';
+import '../App.css';
 
 //-----------------------Redux form validate----------------------------------------------
 const required = (val) => val && val.length;
@@ -19,6 +20,7 @@ const minLength = (len) => (val) => !(val) || (val.length >= len);
 const isNumber = (val) => !isNaN(Number(val));
 //----------------------------------------------------------------------------------------
 function Eelist(props){
+
     //-----------------------EelistComponent State------------------------------------------
     const dispatch = useDispatch();
     const [FilterdEeName,setFilterdEeName] =  useState([])
@@ -54,15 +56,15 @@ function Eelist(props){
         function handleSubmit(values){
                 // Merger cai id vao value obiect
                 const newValues = {
-                    id:values.id,
+                    id:props.staffs.length+1,
                     name:values.name,
                     salaryScale:values.salaryScale,
-                    doB:values.doB,
-                    startedDate:values.startedDate,
+                    doB:values.doB +'T08:59:00.000Z',
+                    startDate:values.startDate +'T08:59:00.000Z',
                     departmentId:values.department,
                     annualLeave:values.annualLeave,
                     overTime:values.overTime,
-                    salary:values.salary,
+                    salary:values.salary
                 }
                 postStaff(dispatch, newValues);
                 handleClose()
@@ -91,16 +93,20 @@ function Eelist(props){
     //---------------------------@Render items------------------------------------------------------------------
         const Liststaff = props.staffs.map((staffs)=>{
             return(
-                <>
-                    <div key={staffs.id}  className='col-sm-12 col-md-6 col-lg-3 mt-5'>
-                        <Link className='text-decoration-none text-dark' to={`/staffs/${staffs.id}`}>
-                            <Card body className="text-center">
-                                <CardImg  width='100%' src={logo} alt={staffs.name}/>
-                                <CardTitle >{staffs.name}</CardTitle>
-                            </Card>
-                        </Link>
-                    </div>
-                </>
+                <div key={staffs.id}  className='col-sm-12 col-md-6 col-lg-3 mt-5'>
+                    <FadeTransform in transformProps={
+                        {
+                            exitTransform: 'scale(0.5) translateY(-50%)'
+                        }
+                    }>
+                            <Link className='text-decoration-none text-dark' to={`/staffs/${staffs.id}`}>
+                                <Card body className="text-center">
+                                    <CardImg  width='100%' src={logo} alt={staffs.name}/>
+                                    <CardTitle >{staffs.name}</CardTitle>
+                                </Card>
+                            </Link>
+                    </FadeTransform>
+                </div>
             )
         })
     //---------------------------@Render items when search press-----------------------------------------------
@@ -120,19 +126,18 @@ function Eelist(props){
             })
     //---------------------------@Render field---------------------------------------------------------------
         return (
-            // test-area
-
             <div className='container mt-3'>
                 <div className='row'>
                     <div >
                         <Container>
                             <Row className="justify-content-between align-items-center">
-                                <Col xs lg='3'className='mb-sm-3 mb-md-0 mb-l-0 customViewport'>
-                                    <div className='d-flex justify-content-between align-items-center'>
-                                        <h3 className='me-5'>Công cụ :</h3>
+                                <Col className=' customViewport col-sm-12 col-md-6 col-lg-6'>
+                                    <div className='d-flex justify-content-bettween'>
+                                        <h3>Công cụ :</h3>
                                         <Button
                                         variant="primary"
                                         onClick={handleShow}
+                                        className='ms-3'
                                         >
                                                 <FontAwesomeIcon
                                                 icon={faPlus}
@@ -150,7 +155,7 @@ function Eelist(props){
                                         </Button>
                                     </div>
                                 </Col>
-                                <Col md='auto'>
+                                <Col className='col-sm-12 col-md-6 col-lg-6 mt-sm-2'>
                                     {/* Search Bar */}
                                     <Form className="d-flex" onSubmit={handleSubmitSearch}>
                                         <FormControl
@@ -170,18 +175,7 @@ function Eelist(props){
                             </Row>
                         </Container>
                         {/*Form add Employee-------------------------------------------------------*/}
-                            <Transition
-                                items={show}
-                                from={{ opacity: 0 }}
-                                enter={{ opacity: 1 }}
-                                leave={{ opacity: 0 }}
-                                delay={200}
-                                config={config.molasses}
-                                >
-                                {(styles, item) =>
-                                item &&
-
-                            <animated.div style={styles}>
+                            <div>
                                 <Modal show={show} onHide={handleClose} >
                                     <Modal.Header >
                                         <h1>Thêm Nhân Viên</h1>
@@ -191,37 +185,6 @@ function Eelist(props){
                                     </Modal.Header>
                                     <Modal.Body>
                                         <LocalForm onSubmit={(values)=>handleSubmit(values)}  >
-                                            <Row className="mb-3">
-                                                    <Form.Label htmlFor='name' column sm="3">
-                                                    Mã Nhân Viên
-                                                    </Form.Label>
-                                                    <Col sm="9">
-                                                        <Control.text
-                                                        placeholder="Mã Nhân Viên"
-                                                        model='.id'// must be .name to collect data
-                                                        id='id'
-                                                        name='id'
-                                                        className='form-control'
-                                                        updateOn={'change'}//OnChange event
-                                                        validators={
-                                                            {
-                                                                required,maxLength:maxLength(20),isNumber
-                                                            }
-                                                        }
-                                                        />
-                                                        <Errors
-                                                        className='text-danger'
-                                                        model='.id'
-                                                        show='touched'
-                                                        name='id'
-                                                        messages={{
-                                                            required:'* Trường này không được trống',
-                                                            maxLength:'* Trường này phải nhỏ hơn 20 ký tự',
-                                                            isNumber:'* Trường này phải là số'
-                                                        }}
-                                                        />
-                                                    </Col>
-                                                </Row>
                                                 <Row className="mb-3">
                                                     <Form.Label htmlFor='name' column sm="3">
                                                     Tên
@@ -309,23 +272,23 @@ function Eelist(props){
                                                     </Col>
                                                 </Row>
                                                 <Row className="mb-3">
-                                                    <Form.Label htmlFor='startedDate' column sm="3">
+                                                    <Form.Label htmlFor='startDate' column sm="3">
                                                     Ngày Vào Công ty
                                                     </Form.Label>
                                                     <Col sm="9">
                                                         <Control.text
                                                         placeholder="Ngày Vào Công ty"
                                                         type='date'
-                                                        model='.startedDate'
-                                                        id='startedDate'
-                                                        name='startedDate'
+                                                        model='.startDate'
+                                                        id='startDate'
+                                                        name='startDate'
                                                         className='form-control'
                                                         updateOn={'change'}
                                                         validators={{required}}
                                                         />
                                                         <Errors
                                                             className='text-danger'
-                                                            model='.startedDate'
+                                                            model='.startDate'
                                                             show='touched'
                                                             messages={{
                                                                 required:'* Trường này không được trống',
@@ -449,9 +412,7 @@ function Eelist(props){
                                         </LocalForm>
                                     </Modal.Body>
                                 </Modal>
-                            </animated.div>
-                        }
-                    </Transition>
+                            </div>
                     </div>
                     {/* delete staff modal form------------------------------------------------------------------ */}
                         <>

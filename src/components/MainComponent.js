@@ -36,13 +36,13 @@ function Main() {
         <div className='container'>
             <Navbarcomponent/>
             {/* usign react router V6 to navigate to another page */}
-            <Routes>
-              <Route path="/" element={<Eelist staffs={staffs} isLoadingStaffs={isLoadingStaffs} errMessStaffs={errMessStaffs}/>}/>)
-              <Route path="/department" element={<Departmentcomponent departments={departments} isLoadingDepartments={isLoadingDepartments} errMessDepartments={errMessDepartments}/>}/>
-              <Route path="/department/:idDept" element={<Departmentdetailcomponent departments={departments} staffs={staffs}/>}/>
-              <Route path="/salary" element={<Staffsalarycomponent salary={salary} isLoadingSalary={isLoadingSalary} errMessSalary={errMessSalary}/>}/>
-              <Route path="/staffs/:id" element={<Staffdetailcomponent staffs={staffs} departments={departments}/>}/>
-            </Routes>
+                <Routes>
+                  <Route path="/" element={<Eelist staffs={staffs} isLoadingStaffs={isLoadingStaffs} errMessStaffs={errMessStaffs}/>}/>)
+                  <Route path="/department" element={<Departmentcomponent departments={departments} isLoadingDepartments={isLoadingDepartments} errMessDepartments={errMessDepartments}/>}/>
+                  <Route path="/department/:idDept" element={<Departmentdetailcomponent departments={departments} staffs={staffs}/>}/>
+                  <Route path="/salary" element={<Staffsalarycomponent salary={salary} isLoadingSalary={isLoadingSalary} errMessSalary={errMessSalary}/>}/>
+                  <Route path="/staffs/:id" element={<Staffdetailcomponent staffs={staffs} departments={departments}/>}/>
+                </Routes>
             <Footercomponent/>
         </div>
       </div>

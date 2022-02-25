@@ -2,7 +2,58 @@
   .customViewport{
     margin-bottom: 10px;
   }
+  .customflex{
+    flex-direction: column;
+  }
  }
 .customWidth{
   width: 100%;
+}
+.invisible{
+  display: none;
+}
+.page-enter {
+  opacity: 0.01;
+  transform: translateX(-100%);
+}
+
+.page-enter-active {
+  opacity: 1;
+  transform: translateX(0%);
+  transition: all 300ms ease-in;
+}
+
+.page-exit {
+  opacity: 1;
+  transform: translateX(0%);
+}
+
+.page-exit-active {
+  opacity: 0.01;
+  transform: translateX(100%);
+  transition: all 300ms ease-out;
+}
+.override{
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+}
+.mb-05{
+  margin-bottom: 0.5rem;
+}
+.positionRelative{
+  position: relative;
+}
+#editBtn{
+  display: none;
+}
+#staffInfoContainer:hover #editBtn{
+  display: block;
+  transition: all 0.5s ease-in-out;
+}
+.customWidthTitle{
+  width:300px;
 }
