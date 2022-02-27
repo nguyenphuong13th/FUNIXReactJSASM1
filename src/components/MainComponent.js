@@ -31,6 +31,7 @@ function Main() {
     useEffect(() => {
       dispatch(fetchSalary())
     },[]);
+    // const staffsList = staffs.map(staffsList => {staffsList})
   return (
       <div>
         <div className='container'>

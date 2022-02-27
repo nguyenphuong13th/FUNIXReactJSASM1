@@ -5,12 +5,12 @@ import {Form,FormControl,Button,Row,Col,Modal,Container} from 'react-bootstrap'
 import { FadeTransform } from 'react-animation-components';
 import { Loading } from '../redux/LoadingCopmponent';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faPlus,faMinus} from '@fortawesome/free-solid-svg-icons'
+import {faPlus} from '@fortawesome/free-solid-svg-icons'
 import {Control,LocalForm,Errors} from 'react-redux-form'
 import { useDispatch } from 'react-redux';
 import logo from '../assets/images/alberto.png'
 import ErrMessageComponent from './ErrMessageComponent';
-import { postStaff,deleteStaff } from '../redux/ActionCreator';
+import { postStaff} from '../redux/ActionCreator';
 import '../App.css';
 
 //-----------------------Redux form validate----------------------------------------------
@@ -25,13 +25,10 @@ function Eelist(props){
     const dispatch = useDispatch();
     const [FilterdEeName,setFilterdEeName] =  useState([])
     const[searchEeName,setSearchEeName]= useState('')
-    const[deletedEeId,setDeletedEeId]= useState('')
     const[ButtonSearchclick,setButtonSearchclick]= useState(false)
     const [show, setShow] = useState(false);
-    const [lgShow, setLgShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    const handleLgClose = () => setLgShow(false);
     if(props.isLoadingStaffs){
         return(
             <div className="container">
@@ -82,14 +79,7 @@ function Eelist(props){
             }
             setButtonSearchclick(true)
         }
-    //----------------------- @ desciption handleSubmitDeletedEe------------------------------------------------
-        const handleSubmitDeletedEe = (e)=>{
-            e.preventDefault();
-            const DeletedEeID = deletedEeId;
-            deleteStaff(dispatch,DeletedEeID);
-            setDeletedEeId('');
-            handleLgClose();
-        }
+
     //---------------------------@Render items------------------------------------------------------------------
         const Liststaff = props.staffs.map((staffs)=>{
             return(
@@ -143,16 +133,7 @@ function Eelist(props){
                                                 icon={faPlus}
                                                 />
                                         </Button>
-                                        {/* Delete staff button --------------------------*/}
-                                        <Button
-                                        variant="danger"
-                                        onClick={() => setLgShow(true)}
-                                        className='ms-2'
-                                        >
-                                                <FontAwesomeIcon
-                                                icon={faMinus}
-                                                />
-                                        </Button>
+
                                     </div>
                                 </Col>
                                 <Col className='col-sm-12 col-md-6 col-lg-6 mt-sm-2'>
@@ -414,46 +395,6 @@ function Eelist(props){
                                 </Modal>
                             </div>
                     </div>
-                    {/* delete staff modal form------------------------------------------------------------------ */}
-                        <>
-                            <Modal
-                                size="lg"
-                                show={lgShow}
-                                onHide={() => setLgShow(false)}
-                                aria-labelledby="example-modal-sizes-title-lg"
-                            >
-                                <Modal.Header closeButton>
-                                    <Modal.Title id="example-modal-sizes-title-lg">
-                                        <h3>Xóa Nhân Viên</h3>
-                                    </Modal.Title>
-                                </Modal.Header>
-                                <Modal.Body>
-                                <Form
-                                onSubmit={handleSubmitDeletedEe}
-                                >
-                                    <Form.Group
-                                    className="mb-3"
-                                    controlId="staffsID"
-                                    >
-                                        <Form.Label className='text-primary'>Xin Nhập Mã Nhân Viên</Form.Label>
-                                        <Form.Control
-                                        type="text"
-                                        placeholder="ID"
-                                        required
-                                        value={deletedEeId}
-                                        onChange={(e) => setDeletedEeId(e.target.value)} />
-
-                                    </Form.Group>
-                                    <Button
-                                    variant="danger"
-                                    type="submit"
-                                    >
-                                        Xóa Nhân Viên
-                                    </Button>
-                                </Form>
-                                </Modal.Body>
-                            </Modal>
-                        </>
                     {ButtonSearchclick ? SearchedEe:Liststaff}
                 </div>
             </div>

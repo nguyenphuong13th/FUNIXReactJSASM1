@@ -2,14 +2,14 @@ import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { Card, CardImg, CardText, CardTitle } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPen } from "@fortawesome/free-solid-svg-icons";
+import { faPen,faMinus } from "@fortawesome/free-solid-svg-icons";
 import { Form, Button, Row, Col, Modal } from "react-bootstrap";
 import { useState } from "react";
 import { Control, LocalForm, Errors } from "react-redux-form";
 import dateFormat, { masks } from "dateformat";
 import { useDispatch } from "react-redux";
 import { Fade, Stagger } from "react-animation-components";
-import { updateStaff } from "../redux/ActionCreator";
+import { updateStaff,deleteStaff } from "../redux/ActionCreator";
 import "../App.css";
 import logo from "../assets/images/alberto1.png";
 //-----------------------Redux form validate----------------------------------------------
@@ -18,12 +18,17 @@ const minLength = (len) => (val) => !val || val.length >= len;
 const isNumber = (val) => !isNaN(Number(val));
 
 function Staffdetailcomponent(props) {
+  console.log('props.staffs',props.staffs);
   const [showEdit, setShowEdit] = useState(false);
+  const [lgShow, setLgShow] = useState(false);
+  const[deletedEeId,setDeletedEeId]= useState('')
+  const handleLgClose = () => setLgShow(false);
   const { id } = useParams(); //use hook to get data each ee from Eelist component onclick
   const dispatch = useDispatch();
   if (props.staffs === null || props.departments === null) {
     return <div></div>;
   } else {
+    //----------------------- @ desciption handleSubmitUpdateEe------------------------------------------------
     function handleSubmitUpdate(values) {
       const newValues = {
         id: values.id,
@@ -34,9 +39,23 @@ function Staffdetailcomponent(props) {
         annualLeave: values.annualLeave,
         overTime: values.overTime,
       };
-      console.log("newValues", newValues.doB);
       updateStaff(dispatch, newValues);
       setShowEdit(false);
+    }
+    //----------------------- @ desciption Handle onClickdeleteataffBtn------------------------------------------------
+    const handleClickDeleteStaffBtn = (e) => { // khi nhấn nút sẽ set ID là ID nhân viên hiện tại
+      e.preventDefault();
+      setDeletedEeId(e.target.value);
+      setLgShow(true);
+    }
+    //----------------------- @ desciption handleSubmitDeletedEe------------------------------------------------
+    const handleSubmitDeletedEe = (e)=>{// dùng ID nhân viên hiện tại để thực hiện delete
+      e.preventDefault();
+      const DeletedEeID = deletedEeId;
+      console.log('DeletedEeID',DeletedEeID);
+      deleteStaff(dispatch,DeletedEeID);
+      setDeletedEeId('');
+      handleLgClose();
     }
     const ClickedStaffdetail = props.staffs
       .filter((ClickedStaffdetail) => {
@@ -56,16 +75,10 @@ function Staffdetailcomponent(props) {
             <Link to="/">Nhân viên</Link>
             <span>/{ClickedStaffdetail.name}</span>
             <Card>
-              <div className="d-flex customflex"
-              id="staffInfoContainer">
+              <div className="d-flex customflex" id="staffInfoContainer">
                 <div className="col-lg-3 col-md-4 col-sm-12">
                   <div className="position-relative">
-                    <CardImg
-                      width="100%"
-                      src={logo}
-                      alt={props.name}
-
-                    />
+                    <CardImg width="100%" src={logo} alt={props.name} />
                     <Button
                       variant="warning"
                       onClick={() => setShowEdit(true)}
@@ -74,8 +87,18 @@ function Staffdetailcomponent(props) {
                     >
                       <FontAwesomeIcon icon={faPen} />
                     </Button>
+                    {/* Delete staff button ---------------------------------------------------*/}
+                    <Button
+                      variant="danger"
+                      onClick={handleClickDeleteStaffBtn}
+                      className="overrideDeleteBtn"
+                      id="editBtn"
+                    >
+                      <FontAwesomeIcon icon={faMinus} />
+                    </Button>
                   </div>
                 </div>
+                {/* //---------------------------@Render items------------------------------------------------------------------ */}
                 <div className="col-lg-9 col-md-8 col-sm-12 ms-2">
                   <Stagger in>
                     <div>
@@ -106,6 +129,7 @@ function Staffdetailcomponent(props) {
                       </Fade>
                     </div>
                   </Stagger>
+                  {/* Edit Staff Form---------------------------------------------------------------------- */}
                   <div className="mt-2">
                     <div>
                       <Modal show={showEdit} onHide={!showEdit}>
@@ -196,7 +220,10 @@ function Staffdetailcomponent(props) {
                                   name="startDate"
                                   className="form-control"
                                   updateOn={"change"}
-                                  defaultValue={ClickedStaffdetail.startDate}
+                                  defaultValue={
+                                    ClickedStaffdetail.startDate,
+                                    "dd/mm/yyyy"
+                                  }
                                 />
                               </Col>
                             </Row>
@@ -271,6 +298,39 @@ function Staffdetailcomponent(props) {
                         </Modal.Body>
                       </Modal>
                     </div>
+                    {/* Delete Staff Form----------------------------------------------------------------- */}
+                    <>
+                      <Modal
+                        size="lg"
+                        show={lgShow}
+                        onHide={() => setLgShow(false)}
+                        aria-labelledby="example-modal-sizes-title-lg"
+                      >
+                        <Modal.Header closeButton>
+                          <Modal.Title id="example-modal-sizes-title-lg">
+                            <h3>Xóa Nhân Viên</h3>
+                          </Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                          <Form onSubmit={handleSubmitDeletedEe}>
+                            <Form.Group className="mb-3" controlId="staffsID">
+                              <Form.Label className="text-primary">
+                                Đây là Mã của Nhân Viên này:
+                              </Form.Label>
+                              <Form.Control
+                                type="text"
+                                placeholder="ID"
+                                required
+                                value={ClickedStaffdetail.id}
+                              />
+                            </Form.Group>
+                            <Button variant="danger" type="submit">
+                              Xóa Nhân Viên
+                            </Button>
+                          </Form>
+                        </Modal.Body>
+                      </Modal>
+                    </>
                   </div>
                 </div>
               </div>

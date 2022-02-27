@@ -80,6 +80,7 @@ export const deleteStaff = (dispatch, id) => {
       // Hanlde when get response successful
       .then((list) => {
         dispatch(DeleteStaff(id));
+        dispatch(fetchStaffs());
       });
   }
 // updating the staffs data from the server using PATCH method
@@ -109,9 +110,10 @@ export const updateStaff = (dispatch, updatedStaff) => {
 
       // Hanlde when get response successful
       .then((list) => {
-        console.log('list', list);
         dispatch(UpdateStaff(list));
+        dispatch(fetchStaffs());
       });
+
   }
 
 
