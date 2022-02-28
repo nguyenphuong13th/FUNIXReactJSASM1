@@ -18,7 +18,6 @@ const minLength = (len) => (val) => !val || val.length >= len;
 const isNumber = (val) => !isNaN(Number(val));
 
 function Staffdetailcomponent(props) {
-  console.log('props.staffs',props.staffs);
   const [showEdit, setShowEdit] = useState(false);
   const [lgShow, setLgShow] = useState(false);
   const[deletedEeId,setDeletedEeId]= useState('')
@@ -51,9 +50,8 @@ function Staffdetailcomponent(props) {
     //----------------------- @ desciption handleSubmitDeletedEe------------------------------------------------
     const handleSubmitDeletedEe = (e)=>{// dùng ID nhân viên hiện tại để thực hiện delete
       e.preventDefault();
-      const DeletedEeID = deletedEeId;
-      console.log('DeletedEeID',DeletedEeID);
-      deleteStaff(dispatch,DeletedEeID);
+      const DeletedEeID = id;
+      deleteStaff(dispatch,id);
       setDeletedEeId('');
       handleLgClose();
     }
@@ -221,8 +219,7 @@ function Staffdetailcomponent(props) {
                                   className="form-control"
                                   updateOn={"change"}
                                   defaultValue={
-                                    ClickedStaffdetail.startDate,
-                                    "dd/mm/yyyy"
+                                    ClickedStaffdetail.startDate
                                   }
                                 />
                               </Col>
@@ -232,7 +229,7 @@ function Staffdetailcomponent(props) {
                                 Phòng Ban
                               </Form.Label>
                               <Col sm="9">
-                                <Control.text
+                                <Control.select
                                   defaultValue={ClickedStaffdetail.departmentId}
                                   updateOn={"change"}
                                   model=".department"
@@ -240,7 +237,14 @@ function Staffdetailcomponent(props) {
                                   name="department"
                                   className="form-control"
                                   aria-label="Default select example"
-                                />
+                                  >
+                                  <option>Chọn Phòng Ban</option>
+                                  <option value="Dept01">Sale</option>
+                                  <option value="Dept02">HR</option>
+                                  <option value="Dept03">Marketing</option>
+                                  <option value="Dept04">IT</option>
+                                  <option value="Dept05">Finance</option>
+                                  </Control.select>
                               </Col>
                             </Row>
                             <Row className="mb-3">
