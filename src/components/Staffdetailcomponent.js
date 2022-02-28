@@ -326,6 +326,7 @@ function Staffdetailcomponent(props) {
                                 placeholder="ID"
                                 required
                                 value={ClickedStaffdetail.id}
+                                disabled
                               />
                             </Form.Group>
                             <Button variant="danger" type="submit">
