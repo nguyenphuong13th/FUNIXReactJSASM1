@@ -2,26 +2,21 @@ import * as ActionTypes from './ActionTypes';
 import axios from 'axios';
 import { baseUrl } from '../shared/baseUrl';
 // getting the staffs data from the server
-// export const fetchStaffs = ()  => {
-//     return dispatch => {
-//         axios.get(baseUrl + 'staffs')
-//         .then(response => {
-//             const staffList = response.data;
-//             setTimeout(() => {
-//                 dispatch(StaffsSuccess(staffList));
-//             }, 2000);
-//         })
-//         .catch(error => {
-//             const errmess = error.message;
-//             dispatch(StaffsFailed(errmess));
-//         });
-//     };
-// }
-export const fetchStaffs = () => (dispatch) => {
-  return fetch(baseUrl + 'staffs')
-  .then(response => response.json())
-  .then(staffsList => dispatch(StaffsSuccess(staffsList)));
-};
+export const fetchStaffs = ()  => {
+    return dispatch => {
+        axios.get(baseUrl + 'staffs')
+        .then(response => {
+            const staffList = response.data;
+            setTimeout(() => {
+                dispatch(StaffsSuccess(staffList));
+            }, 2000);
+        })
+        .catch(error => {
+            const errmess = error.message;
+            dispatch(StaffsFailed(errmess));
+        });
+    };
+}
 // adding the staffs data to the server using POST method
 export const postStaff = (dispatch, newStaff) => {
     fetch(baseUrl + "staffs", {
