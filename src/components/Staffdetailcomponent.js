@@ -51,7 +51,7 @@ function Staffdetailcomponent(props) {
     const handleSubmitDeletedEe = (e)=>{// dùng ID nhân viên hiện tại để thực hiện delete
       e.preventDefault();
       const DeletedEeID = id;
-      deleteStaff(dispatch,id);
+      deleteStaff(dispatch,DeletedEeID);
       setDeletedEeId('');
       handleLgClose();
     }
@@ -312,10 +312,11 @@ function Staffdetailcomponent(props) {
                       >
                         <Modal.Header closeButton>
                           <Modal.Title id="example-modal-sizes-title-lg">
-                            <h3>Xóa Nhân Viên</h3>
+                            <h2>Xóa Nhân Viên</h2>
                           </Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
+                          {/* Show ID staffs before delete
                           <Form onSubmit={handleSubmitDeletedEe}>
                             <Form.Group className="mb-3" controlId="staffsID">
                               <Form.Label className="text-primary">
@@ -332,7 +333,15 @@ function Staffdetailcomponent(props) {
                             <Button variant="danger" type="submit">
                               Xóa Nhân Viên
                             </Button>
-                          </Form>
+                          </Form> */}
+                          {/* chỉ hiện lên thông báo bạng có muốn delete */}
+                          <h4>Bạn có chắc Muốn Xóa Nhân Viên Này khỏi Danh Sách !</h4>
+                          <Button
+                          variant="danger"
+                          type="submit"
+                          onClick={handleSubmitDeletedEe}>
+                              Xóa Nhân Viên
+                            </Button>
                         </Modal.Body>
                       </Modal>
                     </>
