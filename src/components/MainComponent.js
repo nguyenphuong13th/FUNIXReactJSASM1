@@ -20,7 +20,7 @@ function Main() {
     const errMessDepartments = useSelector(state => state.departments.errMess);
     const isLoadingSalary = useSelector(state => state.salary.isLoading);
     const errMessSalary = useSelector(state => state.salary.errMess);
-    // useEffect,useDispatch calling API
+    // use dispath to dispath an action , useEffect to re-render view when API called
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(fetchStaffs())

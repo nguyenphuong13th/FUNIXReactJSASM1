@@ -1,6 +1,7 @@
 {
   "name": "asm4",
   "version": "0.1.0",
+  "homepage": "https://nguyenphuong13th.github.io/FUNIXReactJSASM_X/",
   "private": true,
   "dependencies": {
     "@emotion/css": "^11.7.1",
@@ -17,6 +18,7 @@
     "bootstrap": "^5.1.3",
     "dateformat": "^5.0.2",
     "emotion": "^11.0.0",
+    "gh-pages": "^3.2.3",
     "prop-types": "^15.6.0",
     "react": "^16.8.6",
     "react-animation-components": "^3.0.0",
@@ -39,7 +41,9 @@
     "start": "cross-env BROWSER=chrome react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
