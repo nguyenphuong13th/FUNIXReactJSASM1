@@ -32,8 +32,8 @@ function Staffdetailcomponent(props) {
       const newValues = {
         id: values.id,
         name: values.name,
-        doB: values.doB,
-        startDate: values.startDate,
+        doB: values.doB +'T08:59:00.000Z',
+        startDate: values.startDate +'T08:59:00.000Z',
         departmentId: values.department,
         annualLeave: values.annualLeave,
         overTime: values.overTime,
@@ -105,11 +105,11 @@ function Staffdetailcomponent(props) {
                           Họ và Tên: {ClickedStaffdetail.name}
                         </CardTitle>
                         <CardText className="fs-6 mb-05">
-                          Ngày sinh:{" "}
+                          Ngày sinh:
                           {dateFormat(ClickedStaffdetail.doB, "dd/mm/yyyy")}
                         </CardText>
                         <CardText className="fs-6 mb-05">
-                          Ngày vào công ty:{" "}
+                          Ngày vào công ty:
                           {dateFormat(
                             ClickedStaffdetail.startDate,
                             "dd/mm/yyyy"
@@ -154,8 +154,8 @@ function Staffdetailcomponent(props) {
                                   id="id"
                                   name="id"
                                   className="form-control"
-                                  updateOn={"change"}
                                   defaultValue={ClickedStaffdetail.id}
+                                  disabled
                                 />
                               </Col>
                             </Row>
@@ -202,7 +202,7 @@ function Staffdetailcomponent(props) {
                                   name="doB"
                                   className="form-control"
                                   updateOn={"change"}
-                                  defaultValue={ClickedStaffdetail.doB}
+                                  defaultValue={ClickedStaffdetail.doB && ClickedStaffdetail.doB.slice(0,10)}
                                 />
                               </Col>
                             </Row>
@@ -219,7 +219,7 @@ function Staffdetailcomponent(props) {
                                   className="form-control"
                                   updateOn={"change"}
                                   defaultValue={
-                                    ClickedStaffdetail.startDate
+                                    ClickedStaffdetail.startDate && ClickedStaffdetail.startDate.slice(0,10)
                                   }
                                 />
                               </Col>
